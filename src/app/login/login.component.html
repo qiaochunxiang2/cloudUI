@@ -1,0 +1,76 @@
+<div style="width: 600px">
+  <div id="back" style="background-image: url('../../assets/src/img/login.png')"></div>
+
+  <div class="leftlogo">
+    <img style="width: 120px;position:absolute; top: 30px;left: 30px;user-select: none"
+         src="../../assets/src/img/inspur.png" alt="inspur">
+  </div>
+
+  <div style="position: absolute;height: 100%;width: 100%;text-align: center">
+    <div id="login-content">
+      <div id="left">
+  <span id="title1">
+    Cloud Services
+  </span>
+        <br>
+        <span id="title2">
+     牛逼哄哄de企业数字化云服务平台
+  </span>
+        <br>
+        <ul style="float: left">
+          <li *ngFor="let item of pics">
+            <img [src]="'../../assets/src/img/'+item.pic" [alt]="item.title">
+            <br>
+            <br>
+            <span style="color:#fff;padding-left: 12px;font-size: 18px;">{{item.title}}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div id="logindiv">
+        <form nz-form [formGroup]="validateForm" class="login-form" style="height: 352px" (ngSubmit)="login()">
+          <nz-form-item class="logtitle">
+            企业数字化云服务平台
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control style="margin-top: 25px;">
+              <nz-input-group [nzPrefix]="prefixUser">
+                <input class="loginput" type="text" nz-input formControlName="username" placeholder="用户名"/>
+              </nz-input-group>
+              <nz-form-explain *ngIf="validateForm.get('userName')?.dirty && validateForm.get('userName')?.errors"
+              >请输入用户名
+              </nz-form-explain
+              >
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control style="margin-top: 25px">
+              <nz-input-group [nzPrefix]="prefixLock">
+                <input class="loginput" type="password" nz-input formControlName="password" placeholder="密码"/>
+              </nz-input-group>
+              <nz-form-explain *ngIf="validateForm.get('password')?.dirty && validateForm.get('password')?.errors"
+              >请输入密码
+              </nz-form-explain
+              >
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item style="margin-top: 10px!important;">
+            <nz-form-control>
+              <label nz-checkbox id="check-b" style="margin-left: 14px" formControlName="remember">
+                <span style="font-size: 14px">记住我</span>
+              </label>
+              <button nz-button class="login-form-button" [nzType]="'primary'"><span class="log-in">登 录</span></button>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+        <div class="version">
+          版本信息：V1.0.0
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+  <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+
+
+</div>
