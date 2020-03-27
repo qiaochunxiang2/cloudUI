@@ -6,11 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./index.component.less']
 })
 export class IndexComponent implements OnInit {
-  isCollapsed = false;
+  isCollapsed = true;
 
   constructor() { }
 
   ngOnInit() {
   }
+  logout(){
+  }
+  navigateTo(url: any){
 
+  }
 }
+

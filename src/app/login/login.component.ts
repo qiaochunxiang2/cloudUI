@@ -1,6 +1,9 @@
 import {AfterViewInit, Component, OnInit, } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
+import {LoginService} from './login.service';
+import {Router} from '@angular/router';
+import {NzMessageService} from 'ng-zorro-antd';
 
 declare var $: any;
 
@@ -21,12 +24,25 @@ export class LoginComponent implements OnInit {
   background;
 
   constructor(private fb: FormBuilder,
-              private http: HttpClient,
+              private loginservice: LoginService,
+              private route: Router,
+              private message: NzMessageService
   ) {
   }
 
   login() {
-    console.log(this.validateForm);
+    this.loginservice.login(this.validateForm.value.username, this.validateForm.value.password).then(res => {
+      console.log(JSON.stringify(res));
+      if (res['data'] != false) {
+        localStorage.setItem('clouduser', JSON.stringify(res['data']));
+        this.message.success('登录成功 ，' + res['data'].name);
+        setTimeout(()=>{
+          this.route.navigate(['/']);
+        }, 200);
+        }else{
+        this.message.error('账号或者密码错误');
+      }
+    });
   }
 
   ngOnInit(): void {

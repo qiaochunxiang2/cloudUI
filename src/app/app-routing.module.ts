@@ -1,15 +1,17 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {LoginComponent} from './login/login.component';
+import {AppComponent} from './app.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/welcome' },
-  { path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule) },
-  { path: 'login', pathMatch: 'full', component: LoginComponent, data: {title: '报表设计'}}
+  {path: '', component: AppComponent, data: {reuse: false, track: false}},
+  {path: 'login', component: LoginComponent},
+  {path: 'index', loadChildren: () => import('./pages/index/index.module').then(m => m.IndexModule), data: {reuse: false, track: false}},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
