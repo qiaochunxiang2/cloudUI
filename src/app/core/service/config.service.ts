@@ -1,5 +1,7 @@
+//运行时读取配置文件的服务
+
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import * as ejs from 'src/assets/js/configLoader.js';
 
 declare var CONFIG: any;
 
@@ -7,13 +9,13 @@ declare var CONFIG: any;
   providedIn: 'root'
 })
 export class ConfigService {
-  configPath = '/assets/webconfig.json';
 
-  constructor(private http: HttpClient) {
+  constructor() {
   }
 
-  getConfig() {
-   return this.http.get(this.configPath);
+  getConfig(url) {
+    let loader = new CONFIG.ConfigLoader(url);
+    return loader.getWebConfig();
   }
 
 }

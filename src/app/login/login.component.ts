@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
-import {LoginService} from './login.service';
+import {LoginService} from './service/login.service';
 import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd';
 
@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loginservice.login(this.validateForm.value.username, this.validateForm.value.password).then(res => {
-      console.log(JSON.stringify(res));
       if (res['data'] != false) {
         localStorage.setItem('clouduser', JSON.stringify(res['data']));
         this.message.success('登录成功 ，' + res['data'].name);

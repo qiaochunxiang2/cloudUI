@@ -35,7 +35,11 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/jquery.js",
+              "src/assets/js/jquery-ui.min.js",
+              "src/assets/js/configLoader.js"
+            ]
           },
           "configurations": {
             "production": {

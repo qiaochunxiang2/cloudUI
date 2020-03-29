@@ -1,15 +1,28 @@
-<nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
-            nzBreakpoint="md"
-            [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null">
-    <div class="sidebar-logo">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Cloud Service</h1>
+<div class="top-bar">
+
+  <div id="logo">
+    <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo"
+         style="margin-right:30px;margin-left: 28px; margin-top: 0px; height: 25px">
+  </div>
+  <div id="search-div">
+    <div (click)="isCollapsed=!isCollapsed;" class="button">
+      <i [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" nz-icon></i>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+  </div>
+
+  <div id="user">
+    <nz-avatar [nzDropdownMenu]="user" nz-dropdown nzPlacement="bottomRight"
+               nzShape="circle" nzSrc="/assets/src/img/man.png" nzTrigger="hover"
+               style="margin: -3px 8px 0 12px;cursor:pointer;">
+    </nz-avatar>
+  </div>
+</div>
+
+<nz-layout class="index-container">
+  <nz-sider [(nzCollapsed)]="isCollapsed" [nzWidth]="200" class="index-sider" nzTheme="dark">
+    <!--全部功能菜单-->
+    <ul [nzInlineCollapsed]="isCollapsed"
+        class="menu" nz-menu nzMode="inline" nzNoAnimation nzTheme="dark">
       <li nz-submenu nzTitle="Dashboard" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
@@ -31,31 +44,20 @@
         </ul>
       </li>
     </ul>
+
   </nz-sider>
   <nz-layout>
-    <nz-header style="background: #ffffff">
-      <div class="app-header">
-        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-            <i class="trigger"
-               nz-icon
-               [nzType]="!isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></i>
-        </span>
-      </div>
-      <div id="user" style="float: right">
-        <nz-avatar [nzDropdownMenu]="user" nz-dropdown nzPlacement="bottomRight"
-                   nzShape="circle" nzSrc="/assets/src/img/man.png" nzTrigger="hover"
-                   style="margin: -3px 8px 0 12px;cursor:pointer;">
-        </nz-avatar>
-      </div>
-    </nz-header>
-    <nz-content>
-      <div class="inner-content">
+    <nz-content #content class="content">
+
+      <div  style="width: 100%;height: calc(100% - 31px);overflow-y: auto;">
         <router-outlet></router-outlet>
       </div>
+      <!--<app-welcome *ngIf="tabs.length<=0" style="width: 100%;height: 100%;">-->
+      <!--</app-welcome>-->
     </nz-content>
   </nz-layout>
 </nz-layout>
+
 
 <nz-dropdown-menu #user="nzDropdownMenu">
   <nz-list [nzSplit]="false" class="header-dropdown-menu" nzSize="small">
@@ -63,31 +65,6 @@
       <i nz-icon type="user"></i>&nbsp;
       个人中心
     </nz-list-item>
-
-<!--    <nz-list-item (click)="navigateTo('/index/menu')" *ngIf="isAdmin&&granted">-->
-<!--      <i nz-icon type="align-left"></i>&nbsp;-->
-<!--      应用定义-->
-<!--    </nz-list-item>-->
-<!--    <nz-list-item (click)="navigateTo('/index/role')" *ngIf="isAdmin&&granted">-->
-<!--      <i nz-icon type="team"></i>&nbsp;-->
-<!--      角色管理-->
-<!--    </nz-list-item>-->
-<!--    <nz-list-item (click)="navigateTo('/index/grant')" *ngIf="isAdmin">-->
-<!--      <i nz-icon type="safety-certificate"></i>&nbsp;-->
-<!--      应用授权-->
-<!--    </nz-list-item>-->
-<!--    <nz-list-item (click)="navigateTo('/index/notifytemplate')" *ngIf="isAdmin">-->
-<!--      <i nz-icon nzType="snippets"></i>&nbsp;-->
-<!--      消息模板-->
-<!--    </nz-list-item>-->
-<!--    <nz-list-item (click)="addUserfeenback()" *ngIf="!isAdmin">-->
-<!--      <i nz-icon type="robot"></i>&nbsp;-->
-<!--      意见反馈-->
-<!--    </nz-list-item>-->
-<!--    <nz-list-item (click)="navigateTo('index/mobd/userfeedback')" *ngIf="isAdmin">-->
-<!--      <i nz-icon type="robot"></i>&nbsp;-->
-<!--      反馈管理-->
-<!--    </nz-list-item>-->
     <nz-list-item (click)="logout()" class="top-border">
       <i nz-icon type="logout"></i>&nbsp;
       注销

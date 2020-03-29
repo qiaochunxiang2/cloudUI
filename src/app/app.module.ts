@@ -9,15 +9,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {IndexModule} from './pages/index/index.module';
+import {LoginModule} from './login/login.module';
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +27,8 @@ registerLocaleData(zh);
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    IndexModule
+    IndexModule,
+    LoginModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]

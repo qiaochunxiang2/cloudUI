@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-index',
@@ -6,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./index.component.less']
 })
 export class IndexComponent implements OnInit {
-  isCollapsed = true;
-
-  constructor() { }
+  isCollapsed = false;
+  menu;
+  constructor(
+    private route: Router,
+  ) {
+    this.route.events
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd) { // 当导航成功结束时执行
+          console.log('NavigationEnd:', this.route.url);
+        }
+      });
+  }
 
   ngOnInit() {
   }
