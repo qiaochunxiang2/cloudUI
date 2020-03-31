@@ -1,12 +1,12 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {UrlService} from '../../core/service/url.service';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {filter, map, mergeMap} from 'rxjs/operators';
-import {NzDropdownContextComponent, NzDropdownService, NzMessageService, NzModalComponent, NzTabSetComponent} from 'ng-zorro-antd';
+import {filter} from 'rxjs/operators';
+import {
+  NzMessageService,
+  NzModalService,
+} from 'ng-zorro-antd';
 import {ConfigService} from '../../core/service/config.service';
-import {LoginService} from '../../login/service/login.service';
-import {CdkDragDrop, DragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {PlatformLocation} from '@angular/common';
+import {InspurRouteReuse} from '../../core/routereuse/routeReuse';
 
 @Component({
   selector: 'app-index',
@@ -24,7 +24,6 @@ export class IndexComponent implements OnInit {
   ];
   tabs: Array<any> = [];
   tabIndex: number = 0;
-  tabDropDown: NzDropdownContextComponent;
 
   constructor(
     private router: Router,
@@ -32,21 +31,12 @@ export class IndexComponent implements OnInit {
     private message: NzMessageService,
     private activatedRoute: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
-    private dropDownService: NzDropdownService,
+    private modalService: NzModalService,
   ) {
     this.menu = this.configService.getConfig(this.menuPath);
     this.digoutMenu(this.menu);
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      map(() => this.activatedRoute),
-      map(route => {
-        while (route.firstChild) {
-          route = route.firstChild;
-        }
-        return route;
-      }),
-      filter(route => route.outlet === 'primary'),
-      mergeMap(route => route.data)
+      filter(event => event instanceof NavigationEnd)
     ).subscribe((event) => {
       const url = this.router.url;
       if (['/', '/login', '/index', '/index/empty'].indexOf(url) < 0) {
@@ -60,7 +50,6 @@ export class IndexComponent implements OnInit {
           this.tabs.push(a);
         }
         this.tabIndex = this.tabs.findIndex(p => url.includes(p.url));
-
       }
     });
   }
@@ -69,19 +58,32 @@ export class IndexComponent implements OnInit {
   }
 
   logout() {
+    this.modalService.warning({
+      nzTitle: null,
+      nzContent: '<b style="color:#1b86d7;">您确定要注销吗</b>',
+      nzOkText: '确定',
+      nzOnOk: () => this.clear(),
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('Cancel')
+    });
   }
 
+  //跳转
   navigateTo(data: any) {
     if (data.hasOwnProperty('url')) {
       if (this.router.url == data.url) {
         return;
       }
-      this.router.navigate(['/index/empty']).then(res => {
-        this.router.navigate([data.url]);
-      });
+      let a = this.detailMenu.find(m => data.url.includes(m.url));
+      if (!a) {
+        this.message.info('未找到功能');
+      } else {
+        this.router.navigate(['/index/empty']).then(res => {
+          this.router.navigate([data.url]);
+        });
+      }
     } else {
       this.message.info('未找到功能');
-      return;
     }
   }
 
@@ -95,16 +97,15 @@ export class IndexComponent implements OnInit {
   closeUrl(tab: any) {
     // 当前关闭的是第几个路由
     const index = this.tabs.findIndex(t => t == tab);
-
     if (this.tabs.length == 1) {
       if (tab.url == '/index/welcome') {
         return;
       } else {
         this.tabs = [];
         this.router.navigate(['/index/welcome']).then(res => {
-          // InspurRouteReuse.deleteRouteSnapshot(tab.url);
+          InspurRouteReuse.deleteRouteSnapshot(tab.url);
         }, err => {
-          // InspurRouteReuse.deleteRouteSnapshot(tab.url);
+          InspurRouteReuse.deleteRouteSnapshot(tab.url);
         });
       }
     } else {
@@ -119,12 +120,12 @@ export class IndexComponent implements OnInit {
         }
         // 跳转路由
         this.router.navigate([menu.url]).then(res => {
-          // InspurRouteReuse.deleteRouteSnapshot(tab.url);
+          InspurRouteReuse.deleteRouteSnapshot(tab.url);
         }, err => {
-          // InspurRouteReuse.deleteRouteSnapshot(tab.url);
+          InspurRouteReuse.deleteRouteSnapshot(tab.url);
         });
       }
-      // InspurRouteReuse.deleteRouteSnapshot(tab.url);
+      InspurRouteReuse.deleteRouteSnapshot(tab.url);
     }
   }
 
@@ -143,25 +144,10 @@ export class IndexComponent implements OnInit {
     });
   }
 
-  //tab右键菜单关闭
-  dropDownClose() {
-    if (this.tabDropDown) {
-      this.tabDropDown.close();
-    }
-  }
 
-  //tab中键,右键时触发
-  onAuxClick(event: MouseEvent, tab: any) {
-    //捕获中键
-    if (event.button == 1 && event.which == 2) {
-      this.closeUrl(tab);
-    }
+  clear() {
+    delete localStorage['clouduser'];
+    this.router.navigate(['/']);
   }
-
-  //动态创建tab右键菜单
-  contextMenu($event: MouseEvent, template: TemplateRef<any>) {
-    this.tabDropDown = this.dropDownService.create($event, template);
-  }
-
 }
 

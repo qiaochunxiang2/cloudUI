@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome.component.less']
 })
 export class WelcomeComponent implements OnInit {
-
+  test = 'aaaa';
   constructor() { }
 
   ngOnInit() {
   }
 
+  change(){
+    this.test='bbbb';
+  }
 }

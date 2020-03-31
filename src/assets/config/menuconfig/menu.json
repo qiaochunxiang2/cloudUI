@@ -19,8 +19,8 @@
       },
       {
         "title": "Workplace",
-        "url": "/login",
-        "key": "/index/user",
+        "url": "/index/changepassword",
+        "key": "/index/changepassword",
         "isleaf": true
       }
     ]
