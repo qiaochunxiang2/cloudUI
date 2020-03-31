@@ -1,7 +1,7 @@
 <div class="top-bar">
 
   <div id="logo">
-    <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo"
+    <img src="../../../assets/src/img/cloud2.svg" alt="logo"
          style="margin-right:30px;margin-left: 28px; margin-top: 0px; height: 25px">
   </div>
   <div id="search-div">
@@ -12,7 +12,7 @@
 
   <div id="user">
     <nz-avatar [nzDropdownMenu]="user" nz-dropdown nzPlacement="bottomRight"
-               nzShape="circle" nzSrc="/assets/src/img/man.png" nzTrigger="hover"
+               nzShape="circle" nzSrc="/assets/src/img/1.jpg" nzTrigger="hover"
                style="margin: -3px 8px 0 12px;cursor:pointer;">
     </nz-avatar>
   </div>
@@ -23,40 +23,75 @@
     <!--全部功能菜单-->
     <ul [nzInlineCollapsed]="isCollapsed"
         class="menu" nz-menu nzMode="inline" nzNoAnimation nzTheme="dark">
-      <li nz-submenu nzTitle="Dashboard" nzIcon="dashboard">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Welcome</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/user">Monitor</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Workplace</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzTitle="Form" nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Basic Form</a>
-          </li>
-        </ul>
-      </li>
+      <ng-template [ngForOf]="menu" let-item ngFor>
+
+        <li (click)="navigateTo(item)"
+            *ngIf="item&&(!item.hasOwnProperty('children')||item.children.length<=0)" class="menu" nz-menu-item>
+          <i nz-icon [nzType]="item.icon"></i>
+          {{item.title}}
+        </li>
+
+        <li *ngIf="item&&item.hasOwnProperty('children')&&item.children.length>0" [nzIcon]="item.icon"
+          [nzTitle]="item.title"
+          nz-submenu>
+          <ul>
+            <ng-template [ngForOf]="item.children" let-data ngFor>
+              <li *ngIf="data&&data.hasOwnProperty('children')&&data.children.length>0"
+                  [nzTitle]="data.title" class="submenu"
+                  nz-submenu>
+                <ul>
+                  <ng-template [ngForOf]="data.children" let-a ngFor>
+                    <li *ngIf="a&&a.hasOwnProperty('children')&&a.children.length>0" [nzTitle]="a.title"
+                        class="submenu"
+                        nz-submenu>
+                    </li>
+                    <li (click)="navigateTo(a)"
+                        *ngIf="a&&(!a.hasOwnProperty('children')||a.children.length<=0)"
+                        [nzSelected]="menuSelected(a)"
+                        class="submenu"
+                        nz-menu-item>{{a.title}}</li>
+                  </ng-template>
+                </ul>
+              </li>
+              <li (click)="navigateTo(data)"
+                  *ngIf="data&&(!data.hasOwnProperty('children')||data.children.length<=0)"
+                  class="submenu"
+                  nz-menu-item>{{data.title}}</li>
+            </ng-template>
+          </ul>
+        </li>
+
+      </ng-template>
+
     </ul>
 
   </nz-sider>
   <nz-layout>
     <nz-content #content class="content">
+      <nz-tabset *ngIf="tabs.length>0" [(nzSelectedIndex)]="tabIndex" [nzAnimated]="false" [nzTabBarGutter]="0"
+                 [nzType]="'line'"
+                 class="index-tabset" style="margin-bottom: -16px !important;">
+        <nz-tab (nzClick)="navigateTo(tab)" *ngFor="let tab of tabs" [nzTitle]="titleTemplate">
+          <ng-template #titleTemplate>
+            <div [ngStyle]="{'user-select':'none'}"
+              style="padding: 10px 4px 10px 14px;
+    margin: -10px -6px -10px -4px;
+    user-select: none;">
+              <!--<i nz-icon nzTheme="outline" [nzType]="tab['icon']?tab['icon']:'tag'"></i>-->
+              {{ tab["title"] }}
+              <i (click)="closeUrl(tab)" nz-icon style="font-size: 12px;" type="close"></i>
+            </div>
+          </ng-template>
+        </nz-tab>
+      </nz-tabset>
 
-      <div  style="width: 100%;height: calc(100% - 31px);overflow-y: auto;">
+      <div *ngIf="tabs.length>0" style="width: 100%;height: calc(100% - 31px);overflow-y: auto;">
         <router-outlet></router-outlet>
       </div>
-      <!--<app-welcome *ngIf="tabs.length<=0" style="width: 100%;height: 100%;">-->
-      <!--</app-welcome>-->
     </nz-content>
   </nz-layout>
 </nz-layout>
+
 
 
 <nz-dropdown-menu #user="nzDropdownMenu">

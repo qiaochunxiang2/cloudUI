@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+  styleUrls: ['./pages/user/app.component.less']
 })
 export class AppComponent implements OnInit {
   isCollapsed = false;

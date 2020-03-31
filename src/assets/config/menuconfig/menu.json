@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Dashboard",
+    "icon": "dashboard",
+    "key": "Dashboard",
+    "dir": true,
+    "children": [
+      {
+        "title": "Welcome",
+        "url": "/index/welcome",
+        "key": "/index/welcome",
+        "isleaf": true
+      },
+      {
+        "title": "Monitor",
+        "url": "/index/user",
+        "key": "/index/user",
+        "isleaf": true
+      },
+      {
+        "title": "Workplace",
+        "url": "/login",
+        "key": "/index/user",
+        "isleaf": true
+      }
+    ]
+  },{
+  "title": "Basic Form",
+  "icon": "form",
+  "key": "form",
+  "dir": true,
+  "children": []
+}
+]
