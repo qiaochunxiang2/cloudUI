@@ -1,12 +1,10 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {filter} from 'rxjs/operators';
-import {
-  NzMessageService,
-  NzModalService,
-} from 'ng-zorro-antd';
-import {ConfigService} from '../../core/service/config.service';
+import {filter, map, mergeMap} from 'rxjs/operators';
 import {InspurRouteReuse} from '../../core/routereuse/routeReuse';
+import {NzMessageService, NzModalService} from 'ng-zorro-antd';
+import {ConfigService} from '../../core/service/config.service';
+
 
 @Component({
   selector: 'app-index',
@@ -21,6 +19,9 @@ export class IndexComponent implements OnInit {
     {
       title: '首页', url: '/index/welcome'
     },
+    {
+      title: '修改密码', url: '/index/changepassword'
+    }
   ];
   tabs: Array<any> = [];
   tabIndex: number = 0;
@@ -36,7 +37,16 @@ export class IndexComponent implements OnInit {
     this.menu = this.configService.getConfig(this.menuPath);
     this.digoutMenu(this.menu);
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
+      filter(event => event instanceof NavigationEnd),
+      map(() => this.activatedRoute),
+      map(route => {
+        while (route.firstChild) {
+          route = route.firstChild;
+        }
+        return route;
+      }),
+      filter(route => route.outlet === 'primary'),
+      mergeMap(route => route.data)
     ).subscribe((event) => {
       const url = this.router.url;
       if (['/', '/login', '/index', '/index/empty'].indexOf(url) < 0) {
@@ -77,13 +87,25 @@ export class IndexComponent implements OnInit {
       let a = this.detailMenu.find(m => data.url.includes(m.url));
       if (!a) {
         this.message.info('未找到功能');
+        return;
       } else {
         this.router.navigate(['/index/empty']).then(res => {
           this.router.navigate([data.url]);
         });
       }
     } else {
-      this.message.info('未找到功能');
+      if (this.router.url == data) {
+        return;
+      }
+      let a = this.detailMenu.find(m => data.includes(m.url));
+      if (!a) {
+        this.message.info('未找到功能');
+        return;
+      } else {
+        this.router.navigate(['/index/empty']).then(res => {
+          this.router.navigate([data]);
+        });
+      }
     }
   }
 

@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('clouduser', JSON.stringify(res['data']));
         this.message.success('登录成功 ，' + res['data'].name);
         setTimeout(()=>{
-          this.route.navigate(['/']);
+          this.route.navigate(['/index/welcome']);
         }, 200);
         }else{
         this.message.error('账号或者密码错误');

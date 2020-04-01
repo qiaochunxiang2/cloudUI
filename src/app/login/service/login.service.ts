@@ -12,7 +12,7 @@ export class LoginService {
     private http: HttpClient,
     private url: UrlService,
   ) {
-    this.loginUrl = this.url.hostname + '/login';
+    this.loginUrl = this.url.hostname + '/user/login';
   }
 
   login(username, password) {

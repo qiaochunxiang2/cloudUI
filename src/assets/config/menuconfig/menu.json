@@ -28,7 +28,6 @@
   "title": "Basic Form",
   "icon": "form",
   "key": "form",
-  "dir": true,
-  "children": []
+  "url": "test"
 }
 ]
