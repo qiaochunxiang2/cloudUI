@@ -34,6 +34,7 @@ export class IndexComponent implements OnInit {
     private cdRef: ChangeDetectorRef,
     private modalService: NzModalService,
   ) {
+    InspurRouteReuse.deleteAll();
     this.menu = this.configService.getConfig(this.menuPath);
     this.digoutMenu(this.menu);
     this.router.events.pipe(
@@ -169,7 +170,7 @@ export class IndexComponent implements OnInit {
 
   clear() {
     delete localStorage['clouduser'];
-    this.router.navigate(['/']);
+    window.open('/', '_self');
   }
 }
 

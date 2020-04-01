@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {ChangepasswordService} from './service/changepassword.service';
-import {NzMessageService} from 'ng-zorro-antd';
+import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {Router} from '@angular/router';
 import {InspurRouteReuse} from '../../../core/routereuse/routeReuse';
 
@@ -19,7 +19,8 @@ export class ChangepasswordComponent implements OnInit {
     private fb: FormBuilder,
     private passwordService: ChangepasswordService,
     private message: NzMessageService,
-    private router: Router
+    private router: Router,
+    private modalService: NzModalService,
   ) {
     this.passwordForm = this.fb.group({
       oldPassword: ['', [Validators.required]],
@@ -48,22 +49,34 @@ export class ChangepasswordComponent implements OnInit {
       this.passwordForm.controls[key].updateValueAndValidity();
     }
   }
-  changePassword(){
-    this.passwordService.changePassword(this.passwordForm.value).then(res=>{
-      if (res['data'] == true){
+
+  changePassword() {
+    this.modalService.warning({
+      nzTitle: null,
+      nzContent: '<b style="color:#1b86d7;">您确定要修改密码吗？</b>',
+      nzOkText: '确定',
+      nzOnOk: () => this.changePasswordConfirm(),
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('Cancel')
+    });
+  }
+
+  changePasswordConfirm() {
+    this.passwordService.changePassword(this.passwordForm.value).then(res => {
+      if (res['data'] == true) {
         this.message.success("密码修改成功，请重新登录");
         delete localStorage['clouduser'];
-        setTimeout(()=>{
-          InspurRouteReuse.deleteAll();
-          this.passwordForm.reset();
-          this.router.navigate(['/']);
-        },200);
-      }else if (res['data'] == false){
+        setTimeout(() => {
+          window.open('/', '_self')
+        }, 200);
+      } else if (res['data'] == false) {
         this.message.warning('原密码错误');
-      } else{
+      } else {
         this.message.error(res['data']);
       }
 
     });
+
   }
 }
+

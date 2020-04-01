@@ -1,9 +1,9 @@
-import {AfterViewInit, Component, OnInit, } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
 import {LoginService} from './service/login.service';
 import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd';
+import {InspurRouteReuse} from '../core/routereuse/routeReuse';
 
 declare var $: any;
 
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     this.loginservice.login(this.validateForm.value.username, this.validateForm.value.password).then(res => {
       if (res['data'] != false) {
         localStorage.setItem('clouduser', JSON.stringify(res['data']));
-        this.message.success('登录成功 ，' + res['data'].name);
+        this.message.success('登录成功 ，' + res['data']['information']['name']);
         setTimeout(()=>{
           this.route.navigate(['/index/welcome']);
         }, 200);
