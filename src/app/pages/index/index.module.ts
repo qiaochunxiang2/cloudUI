@@ -7,17 +7,19 @@ import {UserComponent} from './user/user.component';
 import {EmptyComponent} from './empty/empty.component';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import {ChangepasswordComponent} from './changepassword/changepassword.component';
 import {InspurRouteReuse} from '../../core/routereuse/routeReuse';
+import {UpdateavatarComponent} from './updateavatar/updateavatar.component';
 
 const routes: Routes = [
   {
     path: '', component: IndexComponent, children: [
       {path: '', redirectTo: 'welcome', pathMatch: 'full', data: {reuse: false, track: false}},
       {path: 'welcome', component: WelcomeComponent, data: {title: '首页'}},
-      {path: 'user', component: UserComponent, data: {title: '个人中心'}},
+      {path: 'userCenter', component: UserComponent, data: {title: '个人中心'}},
       {path: 'empty', component: EmptyComponent, data: {title: 'loading'}},
-      {path: 'changepassword', component: ChangepasswordComponent, data: { title: '修改密码'}},
+      {path: 'changepassword', component: ChangepasswordComponent, data: {title: '修改密码'}},
+      {path: 'updateavatar', component: UpdateavatarComponent, data: {title: '修改头像'}},
     ], data: {reuse: false, track: false}
   },
 ];
@@ -29,6 +31,7 @@ const routes: Routes = [
     UserComponent,
     EmptyComponent,
     ChangepasswordComponent,
+    UpdateavatarComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -38,7 +41,7 @@ const routes: Routes = [
     ReactiveFormsModule
   ],
   exports: [RouterModule],
-  providers:[
+  providers: [
     {provide: RouteReuseStrategy, useClass: InspurRouteReuse},
   ]
 })

@@ -12,7 +12,7 @@
 
   <div id="user">
     <nz-avatar [nzDropdownMenu]="user" nz-dropdown nzPlacement="bottomRight"
-               nzShape="circle" nzSrc="/assets/src/img/man.png" nzTrigger="hover"
+               nzShape="circle" [nzSrc]="userPhoto" nzTrigger="hover"
                style="margin: -3px 8px 0 12px;cursor:pointer;">
     </nz-avatar>
   </div>
@@ -32,8 +32,8 @@
         </li>
 
         <li *ngIf="item&&item.hasOwnProperty('children')&&item.children.length>0" [nzIcon]="item.icon"
-          [nzTitle]="item.title"
-          nz-submenu>
+            [nzTitle]="item.title"
+            nz-submenu>
           <ul>
             <ng-template [ngForOf]="item.children" let-data ngFor>
               <li *ngIf="data&&data.hasOwnProperty('children')&&data.children.length>0"
@@ -74,7 +74,7 @@
         <nz-tab (nzClick)="navigateTo(tab)" *ngFor="let tab of tabs" [nzTitle]="titleTemplate">
           <ng-template #titleTemplate>
             <div [ngStyle]="{'user-select':'none'}"
-              style="padding: 10px 4px 10px 14px;
+                 style="padding: 10px 4px 10px 14px;
     margin: -10px -6px -10px -4px;
     user-select: none;">
               <!--<i nz-icon nzTheme="outline" [nzType]="tab['icon']?tab['icon']:'tag'"></i>-->
@@ -93,10 +93,9 @@
 </nz-layout>
 
 
-
 <nz-dropdown-menu #user="nzDropdownMenu">
   <nz-list [nzSplit]="false" class="header-dropdown-menu" nzSize="small">
-    <nz-list-item (click)="navigateTo('/index/usercenter')">
+    <nz-list-item (click)="navigateTo('/index/userCenter')">
       <i nz-icon type="user"></i>&nbsp;
       个人中心
     </nz-list-item>

@@ -21,10 +21,14 @@ export class IndexComponent implements OnInit {
     },
     {
       title: '修改密码', url: '/index/changepassword'
+    },
+    {
+      title: '个人中心', url: '/index/userCenter',
     }
   ];
   tabs: Array<any> = [];
   tabIndex: number = 0;
+  userPhoto;
 
   constructor(
     private router: Router,
@@ -34,6 +38,7 @@ export class IndexComponent implements OnInit {
     private cdRef: ChangeDetectorRef,
     private modalService: NzModalService,
   ) {
+
     InspurRouteReuse.deleteAll();
     this.menu = this.configService.getConfig(this.menuPath);
     this.digoutMenu(this.menu);
@@ -66,6 +71,8 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
+    let userdata = JSON.parse(localStorage.getItem('clouduser'));
+    this.userPhoto = userdata['information']['imageUrl'];
   }
 
   logout() {

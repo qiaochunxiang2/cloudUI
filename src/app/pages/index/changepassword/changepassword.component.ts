@@ -1,9 +1,8 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {ChangepasswordService} from './service/changepassword.service';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {Router} from '@angular/router';
-import {InspurRouteReuse} from '../../../core/routereuse/routeReuse';
+import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-changepassword',
@@ -17,7 +16,7 @@ export class ChangepasswordComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private passwordService: ChangepasswordService,
+    private userService: UserService,
     private message: NzMessageService,
     private router: Router,
     private modalService: NzModalService,
@@ -62,19 +61,18 @@ export class ChangepasswordComponent implements OnInit {
   }
 
   changePasswordConfirm() {
-    this.passwordService.changePassword(this.passwordForm.value).then(res => {
+    this.userService.changePassword(this.passwordForm.value).then(res => {
       if (res['data'] == true) {
-        this.message.success("密码修改成功，请重新登录");
+        this.message.success('密码修改成功，请重新登录');
         delete localStorage['clouduser'];
         setTimeout(() => {
-          window.open('/', '_self')
+          window.open('/', '_self');
         }, 200);
       } else if (res['data'] == false) {
         this.message.warning('原密码错误');
       } else {
         this.message.error(res['data']);
       }
-
     });
 
   }

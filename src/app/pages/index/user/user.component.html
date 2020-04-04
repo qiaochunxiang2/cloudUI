@@ -1,26 +1,138 @@
-<nz-card nzTitle="用户管理">
-  <!--预留接口并不实现删除用户与清空用户, 没实现操作超级管理员用户体系-->
-  <!--<nz-popconfirm nzTitle="您确定要删除所有用户吗?" nzOkText="确认" nzCancelText="取消" (nzOnConfirm)="delAllUsers()">-->
-  <!--<button nz-popconfirm nz-button class="link-btn" [nzType]="'danger'">清空用户</button>-->
-  <!--</nz-popconfirm>-->
-  <nz-table
-    [nzShowPagination]="false"
-    #table
-    nzBordered
-    [nzData]="dataSet">
-    <thead>
-    <tr>
-      <th nzWidth="10%">用户ID</th>
-      <th>用户名</th>
-      <th>用户昵称</th>
-      <th>登录时间|登录IP</th>
-      <th>用户头像</th>
-      <th>用户简介</th>
-      <th nzWidth="10%">状态</th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="content-background" #background>
+  <div class="content-header" style="padding-top: 0; background-color: #ebecef">
+    <div class="content-div" style="height: 50px;padding-top: 10px">
+      <div style="font-weight: bold;line-height: 40px;margin-left: 8px; float: left; padding-left: 100px">
+        <button nz-button [disabled]="!editDisable" (click)="editDisable = !editDisable">编辑</button>
+        <button *ngIf="true" nz-button nzType="primary" [nzLoading]="loading" [disabled]="editDisable" (click)="save">
+          保存
+        </button>
+        <button *ngIf="true" nz-button nzType="primary" [nzLoading]="loading" [disabled]="editDisable"
+                (click)="cancel()">取消
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="content-table" style="padding: 0px 20px 20px 40px; background-color: #ffffff">
+    <nz-layout>
+      <nz-header>
+        <h1>基本信息</h1>
+      </nz-header>
+      <nz-layout>
+        <nz-sider nzWidth="50%">
+          <div nz-row>
+            <nz-form-label nzRequired [nzSpan]="3" [nzOffset]="1">头&nbsp;&nbsp;&nbsp;&nbsp;像</nz-form-label>
 
-    </tbody>
-  </nz-table>
-</nz-card>
+          </div>
+          <div nz-row>
+            <div nz-col [nzSpan]="5" [nzOffset]="7">
+              <nz-avatar [nzSrc]="user['information']['imageUrl']" nzShape="circle" [nzSize]="120" nz-tooltip
+                         nzTooltipTitle="点击更换头像" (click)="showUpdateAvatar()">
+              </nz-avatar>
+            </div>
+          </div>
+          <div nz-row style="padding-top: 15px;">
+            <nz-form-item>
+              <nz-form-label nzRequired [nzSpan]="3" [nzOffset]="1">账&nbsp;&nbsp;&nbsp;&nbsp;号</nz-form-label>
+              <nz-form-control [nzSpan]="16" [nzOffset]="1">
+                <input nz-input disabled="true" [(ngModel)]="user.username">
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-row style="padding-top: 30px;">
+            <nz-form-item>
+              <nz-form-label nzRequired [nzSpan]="3" [nzOffset]="1">姓&nbsp;&nbsp;&nbsp;&nbsp;名</nz-form-label>
+              <nz-form-control [nzSpan]="16" [nzOffset]="1">
+                <input nz-input [(ngModel)]="user['information']['name']" [disabled]="editDisable">
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <div nz-row style="padding-top: 30px;">
+            <nz-form-item>
+              <nz-form-label nzRequired [nzSpan]="3" [nzOffset]="1">性&nbsp;&nbsp;&nbsp;&nbsp;别</nz-form-label>
+              <nz-form-control [nzSpan]="6" [nzOffset]="1">
+                <nz-radio-group [nzDisabled]="editDisable" [(ngModel)]="user['information']['sex']">
+                  <label nz-radio nzValue="1">男</label>
+                  <label nz-radio nzValue="2" style="padding-left: 30px">女</label>
+                </nz-radio-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-row style="padding-top: 30px;">
+            <nz-form-item>
+              <nz-form-label nzRequired [nzSpan]="3" [nzOffset]="1">年&nbsp;&nbsp;&nbsp;&nbsp;龄</nz-form-label>
+              <nz-form-control [nzSpan]="6">
+                <nz-input-number [nzMin]="1" [nzMax]="120" [nzStep]="1" [nzDisabled]="editDisable"
+                                 [(ngModel)]="user['information']['age']"></nz-input-number>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-row style="padding-top: 30px;">
+            <nz-form-label nzRequired [nzSpan]="3" [nzOffset]="1">手机号</nz-form-label>
+            <nz-form-control nzSpan="16" [nzValidateStatus]="phoneTrue?'success':'error'"
+                             [nzHasFeedback]="!phoneTrue" [nzOffset]="1">
+              <input nz-input [disabled]="editDisable" [(ngModel)]="user['information']['phone']"
+                     (ngModelChange)="phoneChecking()">
+              <nz-form-explain *ngIf="!phoneTrue">{{'手机号格式错误'}}</nz-form-explain>
+            </nz-form-control>
+          </div>
+          <div nz-row style="padding-top: 30px;">
+            <nz-form-item>
+              <nz-form-label nzRequired [nzSpan]="3" [nzOffset]="1">Q&nbsp;&nbsp;&nbsp;&nbsp;Q</nz-form-label>
+              <nz-form-control nzSpan="16" [nzValidateStatus]="qqTrue?'success':'error'"
+                               [nzHasFeedback]="!qqTrue" [nzOffset]="1">
+                <input nz-input [disabled]="editDisable" [(ngModel)]="user['information']['qq']"
+                       (ngModelChange)="qqChecking()">
+                <nz-form-explain *ngIf="!qqTrue">{{'QQ格式错误'}}</nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+
+          </div>
+        </nz-sider>
+
+        <nz-content>
+
+          <div nz-row style="padding-top: 293px">
+            <nz-form-item>
+              <nz-form-label nzRequired [nzSpan]="3">生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日</nz-form-label>
+              <nz-form-control nzSpan="16" [nzOffset]="1">
+                <nz-date-picker [(ngModel)]="user['information']['birthday']" [disabled]="editDisable"></nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-row style="padding-top: 30px">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="3" nzRequired>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址</nz-form-label>
+              <nz-form-control nzSpan="16" [nzOffset]="1">
+                <input nz-input [disabled]="editDisable" [(ngModel)]="user['information']['address']">
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-row style="padding-top: 30px">
+            <nz-form-label nzFor="email" nzRequired [nzSpan]="3">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱
+            </nz-form-label>
+            <nz-form-control nzSpan="16" [nzValidateStatus]="emailTrue?'success':'error'"
+                             [nzHasFeedback]="!emailTrue" [nzOffset]="1">
+              <input nz-input [disabled]="editDisable" [(ngModel)]="user['information']['email']"
+                     (ngModelChange)="emailChecking()">
+            </nz-form-control>
+            <nz-form-explain *ngIf="!emailTrue">{{'邮箱格式错误'}}</nz-form-explain>
+          </div>
+          <div nz-row style="padding-top: 30px">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="3" nzRequired>个人简介</nz-form-label>
+              <nz-form-control nzSpan="16" [nzOffset]="1">
+                 <textarea rows="6" nz-input name="note" [disabled]="editDisable"
+                           [(ngModel)]="user['information']['note']"
+                 ></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </nz-content>
+      </nz-layout>
+    </nz-layout>
+
+  </div>
+</div>
+<app-updateavatar [isVisible]="updateAvatarVisible" [avatarUrl]="imageUrl"
+                  (result)="closeUpdateAvatar()"></app-updateavatar>
