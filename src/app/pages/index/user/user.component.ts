@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {ImgService} from '../../../core/service/img.service';
+import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-user',
@@ -22,7 +23,9 @@ export class UserComponent implements OnInit {
     private message: NzMessageService,
     private modelService: NzModalService,
     private imgService: ImgService,
-  ) {}
+    private userService: UserService,
+  ) {
+  }
 
   showUpdateAvatar() {
     this.updateAvatarVisible = true;
@@ -52,7 +55,7 @@ export class UserComponent implements OnInit {
       nzOkText: '确定',
       nzOnOk: () => this.collback(),
       nzCancelText: '取消',
-      nzOnCancel: () => console.log('Cancel')
+      nzOnCancel: () => null
     });
 
   }
@@ -63,8 +66,26 @@ export class UserComponent implements OnInit {
   }
 
   save() {
-    this.editDisable = true;
-    this.userData = JSON.parse(JSON.stringify(this.user));
+    this.modelService.warning({
+      nzTitle: null,
+      nzContent: '<b style="color:#1b86d7;">您确定要保存吗？</b>',
+      nzOkText: '确定',
+      nzOnOk: () => this.saveConfirm(),
+      nzCancelText: '取消',
+      nzOnCancel: () => null
+    });
+  }
+
+  saveConfirm() {
+    this.userService.updateInformation(this.user['information']).then(res => {
+      if (res['state'] == 200) {
+        this.editDisable = true;
+        this.userData = JSON.parse(JSON.stringify(this.user));
+        localStorage.setItem('clouduser', JSON.stringify(this.user));
+      } else {
+        this.message.error('服务器错误');
+      }
+    });
   }
 
   emailChecking() {

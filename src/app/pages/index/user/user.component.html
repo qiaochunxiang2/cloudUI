@@ -3,7 +3,7 @@
     <div class="content-div" style="height: 50px;padding-top: 10px">
       <div style="font-weight: bold;line-height: 40px;margin-left: 8px; float: left; padding-left: 100px">
         <button nz-button [disabled]="!editDisable" (click)="editDisable = !editDisable">编辑</button>
-        <button *ngIf="true" nz-button nzType="primary" [nzLoading]="loading" [disabled]="editDisable" (click)="save">
+        <button *ngIf="true" nz-button nzType="primary" [nzLoading]="loading" [disabled]="editDisable" (click)="save()">
           保存
         </button>
         <button *ngIf="true" nz-button nzType="primary" [nzLoading]="loading" [disabled]="editDisable"

@@ -10,7 +10,7 @@ export class UserService {
   public changePasswordUrl = this.hostname + '/user/changePassword';
   public updatePhotoUrl = this.hostname + '/user/updatePhoto';
   public uploadUrl = this.hostname + '/user/uploadPhoto';
-
+  public updateInformationUrl = this.hostname + '/user/updateInformation';
   constructor(
     private url: UrlService,
     private http: HttpClient
@@ -63,5 +63,16 @@ export class UserService {
         reject(error);
       });
     });
+  }
+
+  updateInformation(data: any){
+    data = JSON.parse(JSON.stringify(data));
+    return new Promise((resolve, reject) => {
+      this.http.post(this.updateInformationUrl, data).toPromise().then(res =>{
+        resolve(res);
+      }, error=>{
+        reject(error);
+      })
+    })
   }
 }
