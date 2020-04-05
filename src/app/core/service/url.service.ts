@@ -11,7 +11,8 @@ export class UrlService {
   public hostname;
   public hostUrl;
   public hostPort;
-
+  public dominName;
+  public imageChuli;
   constructor(
     private http: HttpClient,
     private config: ConfigService
@@ -22,8 +23,9 @@ export class UrlService {
       this.hostPort = webconfig['PORT'];
       this.hostUrl = webconfig['ORIGIN'];
       this.hostname = this.hostUrl + this.hostPort;
+      this.dominName = webconfig['DOMINNAME'];
+      this.imageChuli = webconfig['IMAGECHULI']
     }
-
   }
 
 }

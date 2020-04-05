@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ChangepasswordComponent} from './changepassword/changepassword.component';
 import {InspurRouteReuse} from '../../core/routereuse/routeReuse';
 import {UpdateavatarComponent} from './updateavatar/updateavatar.component';
+import {Updateavatar2Component} from './updateavatar2/updateavatar2.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,7 @@ const routes: Routes = [
     EmptyComponent,
     ChangepasswordComponent,
     UpdateavatarComponent,
+    Updateavatar2Component
   ],
   imports: [
     RouterModule.forChild(routes),

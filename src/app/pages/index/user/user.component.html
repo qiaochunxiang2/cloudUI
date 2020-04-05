@@ -25,7 +25,7 @@
           </div>
           <div nz-row>
             <div nz-col [nzSpan]="5" [nzOffset]="7">
-              <nz-avatar [nzSrc]="user['information']['imageUrl']" nzShape="circle" [nzSize]="120" nz-tooltip
+              <nz-avatar [nzSrc]="userPhoto" nzShape="circle" [nzSize]="120" nz-tooltip
                          nzTooltipTitle="点击更换头像" (click)="showUpdateAvatar()">
               </nz-avatar>
             </div>
@@ -134,5 +134,5 @@
 
   </div>
 </div>
-<app-updateavatar [isVisible]="updateAvatarVisible" [avatarUrl]="imageUrl"
-                  (result)="closeUpdateAvatar()"></app-updateavatar>
+<app-updateavatar2 [isVisible]="updateAvatarVisible"
+                  (result)="closeUpdateAvatar()" ></app-updateavatar2>

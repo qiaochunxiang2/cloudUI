@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
+import {ImgService} from '../../../core/service/img.service';
 
 @Component({
   selector: 'app-user',
@@ -9,20 +10,19 @@ import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 export class UserComponent implements OnInit {
   loading = false;
   updateAvatarVisible = false;
-  imageUrl = 'http://q87xedep1.bkt.clouddn.com/9ccdd80b527748d9a64d4f95fae35281';
   editDisable = true;
   user;
   userData;
   emailTrue = true;
   phoneTrue = true;
   qqTrue = true;
+  userPhoto;
 
   constructor(
     private message: NzMessageService,
-    private modelService: NzModalService
-  ) {
-
-  }
+    private modelService: NzModalService,
+    private imgService: ImgService,
+  ) {}
 
   showUpdateAvatar() {
     this.updateAvatarVisible = true;
@@ -36,6 +36,9 @@ export class UserComponent implements OnInit {
     let userdata = localStorage.getItem('clouduser');
     this.user = JSON.parse(userdata);
     this.userData = JSON.parse(userdata);
+    this.imgService.imageMessage.subscribe(message => {
+      this.userPhoto = message;
+    });
   }
 
   edit() {

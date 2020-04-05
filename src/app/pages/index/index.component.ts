@@ -4,6 +4,7 @@ import {filter, map, mergeMap} from 'rxjs/operators';
 import {InspurRouteReuse} from '../../core/routereuse/routeReuse';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {ConfigService} from '../../core/service/config.service';
+import {ImgService} from '../../core/service/img.service';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class IndexComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     private modalService: NzModalService,
+    private imgService: ImgService,
   ) {
 
     InspurRouteReuse.deleteAll();
@@ -71,8 +73,9 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
-    let userdata = JSON.parse(localStorage.getItem('clouduser'));
-    this.userPhoto = userdata['information']['imageUrl'];
+    this.imgService.imageMessage.subscribe(message => {
+      this.userPhoto = message;
+    });
   }
 
   logout() {

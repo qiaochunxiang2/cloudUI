@@ -1,4 +1,6 @@
 {
   "ORIGIN": "http://localhost",
-  "PORT": ":8080"
+  "PORT": ":8080",
+  "DOMINNAME": "http://q87xedep1.bkt.clouddn.com/",
+  "IMAGECHULI": ""
 }

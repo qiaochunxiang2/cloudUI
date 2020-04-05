@@ -1,0 +1,15 @@
+<nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" nzWidth="400px">
+  <div>
+    <nz-upload [nzBeforeUpload]="beforeUpload" nzListType="picture" [nzShowUploadList]="false" style="padding-left: 40px;padding-right: 40px">
+      <button nz-button nzType="primary"><span>本地图片</span></button>
+    </nz-upload>
+    <button nz-button nzType="primary" [disabled]="true"><span>网络图片</span></button>
+  </div>
+  <hr style="color: #cccccc">
+  <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar" style="width: 300px; height: 310px; margin-left: 30px" alt="avatar"/>
+  <div *nzModalFooter>
+    <button nz-button nzType="primary" (click)="updatePhoto()">确认</button>
+    <button nz-button nzType="default" (click)="handleCancel()" [nzLoading]="loading">取消</button>
+  </div>
+</nz-modal>
+
