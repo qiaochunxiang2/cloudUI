@@ -28,7 +28,7 @@
         <li (click)="navigateTo(item)"
             *ngIf="item&&(!item.hasOwnProperty('children')||item.children.length<=0)" class="menu" nz-menu-item>
           <i nz-icon [nzType]="item.icon"></i>
-          {{item.title}}
+          <span>{{item.title}}</span>
         </li>
 
         <li *ngIf="item&&item.hasOwnProperty('children')&&item.children.length>0" [nzIcon]="item.icon"

@@ -1,33 +1,41 @@
 [
   {
-    "title": "Dashboard",
-    "icon": "dashboard",
-    "key": "Dashboard",
+    "title": "服务器",
+    "icon": "cloud",
+    "key": "cloud",
     "dir": true,
     "children": [
       {
-        "title": "Welcome",
-        "url": "/index/welcome",
-        "key": "/index/welcome",
+        "title": "服务器列表",
+        "url": "/index/cloud/cloudlist",
+        "key": "/index/cloud/cloudlist",
         "isleaf": true
       },
       {
-        "title": "Monitor",
-        "url": "/index/user",
-        "key": "/index/user",
+        "title": "服务器申请",
+        "url": "/index/cloud/cloudapply",
+        "key": "/index/cloud/cloudapply",
         "isleaf": true
       },
       {
-        "title": "Workplace",
+        "title": "服务器介绍",
         "url": "/index/changepassword",
         "key": "/index/changepassword",
         "isleaf": true
       }
     ]
-  },{
-  "title": "Basic Form",
-  "icon": "form",
-  "key": "form",
-  "url": "/index/userCenter"
-}
+  },
+  {
+    "title": "博客管理",
+    "icon": "solution",
+    "key": "blog",
+    "url": "/index/blog/sendBlog"
+  },
+  {
+    "title": "在线地图",
+    "icon": "solution",
+    "key": "amap",
+    "url": "/index/amap"
+  }
+
 ]

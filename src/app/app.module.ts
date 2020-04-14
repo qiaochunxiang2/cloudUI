@@ -12,6 +12,7 @@ import zh from '@angular/common/locales/zh';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {IndexModule} from './pages/index/index.module';
 import {LoginModule} from './login/login.module';
+
 registerLocaleData(zh);
 
 @NgModule({
