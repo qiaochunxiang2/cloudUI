@@ -14,7 +14,6 @@ import {Updateavatar2Component} from './updateavatar2/updateavatar2.component';
 import { AmapComponent } from '../amap/amap.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxAmapModule } from 'ngx-amap';
-import { MarkedPipe } from '../../core/markdown/marked.pipe';
 import {BlogModule} from '../blog/blog.module';
 
 const routes: Routes = [
@@ -47,7 +46,6 @@ const routes: Routes = [
     UpdateavatarComponent,
     Updateavatar2Component,
     AmapComponent,
-    MarkedPipe,
   ],
     imports: [
         RouterModule.forChild(routes),
