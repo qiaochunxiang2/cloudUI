@@ -1,19 +1,19 @@
 [
   {
     "title": "服务器申请",
-    "icon": "solution",
+    "icon": "unordered-list",
     "key": "/index/cloud/cloudapply",
     "url": "/index/cloud/cloudapply"
   },
   {
     "title": "服务器列表",
-    "icon": "solution",
+    "icon": "cloud",
     "key": "/index/cloud/cloudlist",
     "url": "/index/cloud/cloudlist"
   },
   {
     "title": "服务器介绍",
-    "icon": "solution",
+    "icon": "hdd",
     "key": "/index/cloud/cloudintroduce",
     "url": "/index/cloud/cloudintroduce"
   },
@@ -25,7 +25,7 @@
   },
   {
     "title": "在线地图",
-    "icon": "solution",
+    "icon": "appstore",
     "key": "amap",
     "url": "/index/amap"
   }
