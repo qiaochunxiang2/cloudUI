@@ -12,6 +12,12 @@
     "url": "/index/cloud/cloudlist"
   },
   {
+    "title": "服务器架构",
+    "icon": "hdd",
+    "key": "/index/cloud/cloudframework",
+    "url": "/index/cloud/cloudframework"
+  },
+  {
     "title": "服务器介绍",
     "icon": "hdd",
     "key": "/index/cloud/cloudintroduce",
