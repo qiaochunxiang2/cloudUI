@@ -1,29 +1,21 @@
 [
   {
-    "title": "服务器",
-    "icon": "cloud",
-    "key": "cloud",
-    "dir": true,
-    "children": [
-      {
-        "title": "服务器列表",
-        "url": "/index/cloud/cloudlist",
-        "key": "/index/cloud/cloudlist",
-        "isleaf": true
-      },
-      {
-        "title": "服务器申请",
-        "url": "/index/cloud/cloudapply",
-        "key": "/index/cloud/cloudapply",
-        "isleaf": true
-      },
-      {
-        "title": "服务器介绍",
-        "url": "/index/changepassword",
-        "key": "/index/changepassword",
-        "isleaf": true
-      }
-    ]
+    "title": "服务器申请",
+    "icon": "solution",
+    "key": "/index/cloud/cloudapply",
+    "url": "/index/cloud/cloudapply"
+  },
+  {
+    "title": "服务器列表",
+    "icon": "solution",
+    "key": "/index/cloud/cloudlist",
+    "url": "/index/cloud/cloudlist"
+  },
+  {
+    "title": "服务器介绍",
+    "icon": "solution",
+    "key": "/index/cloud/cloudintroduce",
+    "url": "/index/cloud/cloudintroduce"
   },
   {
     "title": "博客管理",

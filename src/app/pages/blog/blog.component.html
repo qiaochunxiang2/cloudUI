@@ -1,0 +1,17 @@
+<div style="font-weight: bold;line-height: 40px;margin-left: 8px; float: left; padding-left: 100px">
+  <button nz-button> 编辑</button>
+  <button *ngIf="true" nz-button nzType="primary">
+    保存
+  </button>
+  <button *ngIf="true" nz-button nzType="primary">取消
+  </button>
+</div>
+<div style="height: 100%;padding-left: 20px">
+  <div id="md" appEditorMd [editormdConfig]="conf" (onEditorChange)="syncModel($event)">
+    <textarea style="display: block;" [(ngModel)]="markdown"></textarea>
+  </div>
+</div>
+
+
+
+
