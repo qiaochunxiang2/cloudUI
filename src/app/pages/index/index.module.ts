@@ -14,6 +14,8 @@ import {Updateavatar2Component} from './updateavatar2/updateavatar2.component';
 import { AmapComponent } from '../amap/amap.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxAmapModule } from 'ngx-amap';
+import { MarkedPipe } from '../../core/markdown/marked.pipe';
+import {BlogModule} from '../blog/blog.module';
 
 const routes: Routes = [
   {
@@ -45,19 +47,21 @@ const routes: Routes = [
     UpdateavatarComponent,
     Updateavatar2Component,
     AmapComponent,
+    MarkedPipe,
   ],
-  imports: [
-    RouterModule.forChild(routes),
-    NgZorroAntdModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxEchartsModule,
-    NgxAmapModule.forRoot({
-      // a sample key, please register your key at https://lbs.amap.com/
-      apiKey: '9e7b9f938691f60715ddae07436cdacd'
-    }),
-  ],
+    imports: [
+        RouterModule.forChild(routes),
+        NgZorroAntdModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxEchartsModule,
+        NgxAmapModule.forRoot({
+            // a sample key, please register your key at https://lbs.amap.com/
+            apiKey: '9e7b9f938691f60715ddae07436cdacd'
+        }),
+        BlogModule,
+    ],
   exports: [RouterModule],
   providers: [
     {provide: RouteReuseStrategy, useClass: InspurRouteReuse},

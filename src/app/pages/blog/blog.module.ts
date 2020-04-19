@@ -5,10 +5,10 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InspurRouteReuse} from '../../core/routereuse/routeReuse';
 import {EditorMdDirective} from '../../core/editor/editor-md.directive';
-import {CloudRoutingModule} from '../cloud/cloud-routing.module';
 import {BlogRoutingModule} from './blog-routing.module';
 import {BlogComponent} from './blog.component';
 import {SendblogComponent} from './sendblog/sendblog.component';
+import { BlogdetailedComponent } from './blogdetailed/blogdetailed.component';
 
 // const routes: Routes = [
 //   {
@@ -22,7 +22,8 @@ import {SendblogComponent} from './sendblog/sendblog.component';
   declarations: [
     EditorMdDirective,
     BlogComponent,
-    SendblogComponent
+    SendblogComponent,
+    BlogdetailedComponent
   ],
   imports: [
     // RouterModule.forChild(routes),
@@ -32,7 +33,7 @@ import {SendblogComponent} from './sendblog/sendblog.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  exports: [RouterModule],
+  exports: [RouterModule, BlogdetailedComponent],
   providers: [
     {provide: RouteReuseStrategy, useClass: InspurRouteReuse},
   ]
