@@ -1,17 +1,23 @@
-<div style="font-weight: bold;line-height: 40px;margin-left: 8px; float: left; padding-left: 100px">
-  <button nz-button> 编辑</button>
-  <button *ngIf="true" nz-button nzType="primary">
-    保存
-  </button>
-  <button *ngIf="true" nz-button nzType="primary">取消
-  </button>
-</div>
-<div style="height: 100%;padding-left: 20px">
-  <div id="md" appEditorMd [editormdConfig]="conf" (onEditorChange)="syncModel($event)">
-    <textarea style="display: block;" [(ngModel)]="markdown"></textarea>
+<div nz-row style="padding-top: 30px; background: #ffffff; height: 100%" *ngIf="!blogDetailVisible">
+  <div nz-col [nzSpan]="16" [nzOffset]="3" >
+    <nz-page-header class="site-page-header" *ngFor="let blog of blogData">
+      <!--avatar-->
+      <nz-avatar nz-page-header-avatar
+                 [nzSrc]="'http://q87xedep1.bkt.clouddn.com/'+blog['userInformation']['imageUrl']"></nz-avatar>
+      <!--title-->
+      <nz-page-header-title><a (click)="changeSelectedBlog(blog)" style="font-size: 20px">{{blog['title']}}</a></nz-page-header-title>
+      <!--content-->
+      <nz-page-header-content>
+        <div nz-row>
+          <div class="content">
+            <p nz-paragraph style="width: 900px; line-height: 30px">
+              {{blog['publishDate'] | date: 'yyyy-MM-dd'}}：{{blog['describe']}}...
+            </p>
+          </div>
+        </div>
+      </nz-page-header-content>
+    </nz-page-header>
   </div>
 </div>
-
-
-
+<app-blogdetailed *ngIf="blogDetailVisible" [markdown]="selectedBlog" (result)="back()"></app-blogdetailed>
 

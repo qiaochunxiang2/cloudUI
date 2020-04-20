@@ -27,6 +27,12 @@
     "title": "博客管理",
     "icon": "solution",
     "key": "blog",
+    "url": "/index/blog"
+  },
+  {
+    "title": "博客发表",
+    "icon": "solution",
+    "key": "blog",
     "url": "/index/blog/sendBlog"
   },
   {

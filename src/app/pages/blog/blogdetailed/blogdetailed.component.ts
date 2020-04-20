@@ -1,4 +1,14 @@
-import {Component, OnInit, Input, AfterViewChecked, AfterViewInit, OnChanges, SimpleChanges, ChangeDetectorRef} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  AfterViewChecked,
+  AfterViewInit,
+  OnChanges,
+  SimpleChanges,
+  ChangeDetectorRef,
+  Output, EventEmitter
+} from '@angular/core';
 
 declare var editormd: any;
 
@@ -8,7 +18,8 @@ declare var editormd: any;
   styleUrls: ['./blogdetailed.component.less']
 })
 export class BlogdetailedComponent implements OnInit{
-  @Input() test;
+  @Input() markdown;
+  @Output() result = new EventEmitter();
   constructor(
     private cdef: ChangeDetectorRef
   ) {
@@ -21,7 +32,7 @@ export class BlogdetailedComponent implements OnInit{
 
   markdownToHtml() {
     editormd.markdownToHTML("test-editormd-view2", {
-      markdown        : this.test ,//+ "\r\n" + $("#append-test").text(),
+      markdown        : this.markdown['content'] ,//+ "\r\n" + $("#append-test").text(),
       //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
       htmlDecode      : "style,script,iframe",  // you can filter tags decode
       //toc             : false,
@@ -36,4 +47,7 @@ export class BlogdetailedComponent implements OnInit{
     });
   }
 
+  back(){
+    this.result.emit(true);
+  }
 }

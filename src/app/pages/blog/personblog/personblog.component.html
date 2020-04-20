@@ -1,0 +1,34 @@
+<div *ngIf="!sendBlogVisible" >
+  <div nz-row *ngIf="!blogDetailVisible">
+    <div nz-col [nzSpan]="4" [nzOffset]="3">
+      <h1>{{user?.information.name}}的博客</h1>
+    </div>
+    <div>
+      <button nz-button (click)="publish()">写文章</button>
+    </div>
+  </div>
+  <div nz-row style="padding-top: 30px; background: #ffffff; height: 100%" *ngIf="!blogDetailVisible">
+
+    <div nz-col [nzSpan]="16" [nzOffset]="3" >
+      <nz-page-header class="site-page-header" *ngFor="let blog of blogData">
+        <!--avatar-->
+        <nz-avatar nz-page-header-avatar
+                   [nzSrc]="'http://q87xedep1.bkt.clouddn.com/'+blog['userInformation']['imageUrl']"></nz-avatar>
+        <!--title-->
+        <nz-page-header-title><a (click)="changeSelectedBlog(blog)" style="font-size: 20px">{{blog['title']}}</a></nz-page-header-title>
+        <!--content-->
+        <nz-page-header-content>
+          <div nz-row>
+            <div class="content">
+              <p nz-paragraph style="width: 900px; line-height: 30px">
+                {{blog['publishDate'] | date: 'yyyy-MM-dd'}}：{{blog['describe']}}...
+              </p>
+            </div>
+          </div>
+        </nz-page-header-content>
+      </nz-page-header>
+    </div>
+  </div>
+  <app-blogdetailed *ngIf="blogDetailVisible" [markdown]="selectedBlog" (result)="back()"></app-blogdetailed>
+</div>
+<app-sendblog *ngIf="sendBlogVisible" (result)="publishResult()"></app-sendblog>

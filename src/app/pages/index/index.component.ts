@@ -25,6 +25,9 @@ export class IndexComponent implements OnInit {
     },
     {
       title: '个人中心', url: '/index/userCenter',
+    },
+    {
+      title: '我的博客', url: '/index/blog/personBlog',
     }
   ];
   tabs: Array<any> = [];

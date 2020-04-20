@@ -9,6 +9,7 @@ import {BlogRoutingModule} from './blog-routing.module';
 import {BlogComponent} from './blog.component';
 import {SendblogComponent} from './sendblog/sendblog.component';
 import { BlogdetailedComponent } from './blogdetailed/blogdetailed.component';
+import { PersonblogComponent } from './personblog/personblog.component';
 
 // const routes: Routes = [
 //   {
@@ -23,7 +24,8 @@ import { BlogdetailedComponent } from './blogdetailed/blogdetailed.component';
     EditorMdDirective,
     BlogComponent,
     SendblogComponent,
-    BlogdetailedComponent
+    BlogdetailedComponent,
+    PersonblogComponent
   ],
   imports: [
     // RouterModule.forChild(routes),
