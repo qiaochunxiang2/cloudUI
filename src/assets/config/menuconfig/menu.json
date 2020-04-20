@@ -13,7 +13,7 @@
   },
   {
     "title": "服务器架构",
-    "icon": "hdd",
+    "icon": "apartment",
     "key": "/index/cloud/cloudframework",
     "url": "/index/cloud/cloudframework"
   },
@@ -28,12 +28,6 @@
     "icon": "solution",
     "key": "blog",
     "url": "/index/blog"
-  },
-  {
-    "title": "博客发表",
-    "icon": "solution",
-    "key": "blog",
-    "url": "/index/blog/sendBlog"
   },
   {
     "title": "在线地图",
