@@ -18,13 +18,7 @@
     "url": "/index/cloud/cloudframework"
   },
   {
-    "title": "服务器介绍",
-    "icon": "hdd",
-    "key": "/index/cloud/cloudintroduce",
-    "url": "/index/cloud/cloudintroduce"
-  },
-  {
-    "title": "博客管理",
+    "title": "在线博客",
     "icon": "solution",
     "key": "blog",
     "url": "/index/blog"

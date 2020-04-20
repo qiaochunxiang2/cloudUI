@@ -21,7 +21,7 @@ export class EditorConfig {
   public sequenceDiagram = true;
   public imageUpload = true;
   public imageFormats = ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp'];
-  public imageUploadURL = '';
+  public imageUploadURL = 'http://localhost:8080/qiniu/upload';
 
   constructor() {
   }

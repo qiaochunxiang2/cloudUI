@@ -57,7 +57,6 @@ export class UserComponent implements OnInit {
       nzCancelText: '取消',
       nzOnCancel: () => null
     });
-
   }
 
   collback() {

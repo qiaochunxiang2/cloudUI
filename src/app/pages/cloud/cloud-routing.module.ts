@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import {CloudlistComponent} from './cloudlist/cloudlist.component';
 import {CloudapplyComponent} from './cloudapply/cloudapply.component';
 import {CloudComponent} from './cloud.component';
-import {CloudintroduceComponent} from './cloudintroduce/cloudintroduce.component';
 import {CloudFrameworkComponent} from './cloud-framework/cloud-framework.component';
 
 
@@ -18,7 +17,6 @@ const routes: Routes = [
   {
     path: 'cloudapply', component: CloudapplyComponent, data: {'title': '服务器申请'}
   },
-  {path: 'cloudintroduce', component: CloudintroduceComponent, data: {'title': '服务器介绍'}},
   {path: 'cloudframework', component: CloudFrameworkComponent, data: {'title': '服务器架构'}},
 
 ];

@@ -8,7 +8,6 @@ import { CloudComponent } from './cloud.component';
 import { CloudlistComponent } from './cloudlist/cloudlist.component';
 import { CloudapplyComponent } from './cloudapply/cloudapply.component';
 import {CloudRoutingModule} from './cloud-routing.module';
-import { CloudintroduceComponent } from './cloudintroduce/cloudintroduce.component';
 import { CloudFrameworkComponent } from './cloud-framework/cloud-framework.component';
 
 
@@ -18,7 +17,6 @@ import { CloudFrameworkComponent } from './cloud-framework/cloud-framework.compo
   CloudComponent,
   CloudlistComponent,
   CloudapplyComponent,
-  CloudintroduceComponent,
   CloudFrameworkComponent],
   imports: [
     // RouterModule.forChild(routes),
