@@ -1,8 +1,8 @@
-<div class="content-background" #background *ngIf="!sendBlogVisible">
+<div class="content-background" #background *ngIf="!sendBlogVisible" style="background: #ffffff">
   <div class="content-header" #header>
     <div class="content-div" style="height: 40px;padding: 4px 8px;" *ngIf="!blogDetailVisible">
       <span (click)="back()" [title]="'返回详情列表'"
-            style="font-weight: bold;line-height: 40px;margin-left: 8px;color: black">
+            style="font-weight: bold;line-height: 40px;margin-left: 8px;color: black; font-size: 20px">
         {{user?.information.name}}的博客
       </span>
       <div style="float: right;padding-top: 4px;">
@@ -12,9 +12,7 @@
   </div>
   <!--    缺一个动态查询？-->
   <div class="content-table" style="padding-top: 8px;">
-
     <div nz-row style="padding-top: 30px; background: #ffffff; height: 100%" *ngIf="!blogDetailVisible">
-
       <div nz-col [nzSpan]="16" [nzOffset]="3">
         <nz-page-header class="site-page-header" *ngFor="let blog of blogData">
           <!--avatar-->
