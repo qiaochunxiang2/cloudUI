@@ -45,10 +45,10 @@ export class UpdateavatarComponent implements OnInit {
     let id = data.id;
     let key = data['information']['imageUrl'];
     this.userService.updatePhoto(this.updateFile, id, key).then(res => {
-      console.log(res['data']);
       if (res['data'] == true) {
         this.result.emit(false);
         this.imgService.changeImageMessage(this.avatarUrl);
+        this.message.success('头像更改成功');
       }else if (res['data'] != false) {
         this.result.emit(false);
         this.imgService.changeImageMessage(this.avatarUrl);

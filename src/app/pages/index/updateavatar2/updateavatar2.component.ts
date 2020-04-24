@@ -46,7 +46,7 @@ export class Updateavatar2Component implements OnInit {
       if (res['data'] != false) {
         this.result.emit(false);
         this.imgService.changeImageMessage2(res['data']);
-        console.log(res['data']);
+       this.message.success('头像更改成功');
       } else {
         this.message.error('无法更改头像，请联系开发人员。');
       }

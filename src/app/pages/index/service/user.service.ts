@@ -8,8 +8,8 @@ import {HttpClient} from '@angular/common/http';
 export class UserService {
   public hostname = this.url.hostname;
   public changePasswordUrl = this.hostname + '/user/changePassword';
-  public updatePhotoUrl = this.hostname + '/user/updatePhoto';
-  public uploadUrl = this.hostname + '/user/uploadPhoto';
+  public updatePhotoUrl = this.hostname + '/qiniu/updatePhoto';
+  public uploadUrl = this.hostname + '/qiniu/uploadPhoto';
   public updateInformationUrl = this.hostname + '/user/updateInformation';
   constructor(
     private url: UrlService,
