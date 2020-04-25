@@ -91,8 +91,23 @@
         </nz-sider>
 
         <nz-content>
-
-          <div nz-row style="padding-top: 293px">
+          <div nz-row style="padding-top: 30px">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="3" nzRequired>公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司</nz-form-label>
+              <nz-form-control nzSpan="16" [nzOffset]="1">
+                <input nz-input [disabled]="true" [(ngModel)]="user['information']['department']['company']['name']">
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-row style="padding-top: 30px">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="3" nzRequired>部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门</nz-form-label>
+              <nz-form-control nzSpan="16" [nzOffset]="1">
+                <input nz-input [disabled]="true" [(ngModel)]="user['information']['department']['name']">
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-row style="padding-top: 30px">
             <nz-form-item>
               <nz-form-label nzRequired [nzSpan]="3">生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日</nz-form-label>
               <nz-form-control nzSpan="16" [nzOffset]="1">
