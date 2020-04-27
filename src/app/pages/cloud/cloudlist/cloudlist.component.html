@@ -13,15 +13,15 @@
       style="width: auto">
       <thead>
       <tr>
-        <th nzWidth="100px" [nzAlign]="'center'">实例ID/名称</th>
-        <th nzWidth="100px" [nzAlign]="'center'">标签</th>
-        <th nzWidth="100px" [nzAlign]="'center'">监控</th>
-        <th nzWidth="100px" [nzAlign]="'center'">可用区</th>
-        <th nzWidth="100px" [nzAlign]="'center'">IP地址</th>
-        <th nzWidth="100px" [nzAlign]="'center'">运行状态</th>
-        <th nzWidth="100px" [nzAlign]="'center'">网络状态</th>
-        <th nzWidth="100px" [nzAlign]="'center'">配置</th>
-        <th nzWidth="150px" [nzAlign]="'center'">付费方式</th>
+        <th [nzAlign]="'center'">实例ID/名称</th>
+        <th [nzAlign]="'center'">IP地址</th>
+        <th [nzAlign]="'center'">内存大小</th>
+        <th [nzAlign]="'center'">硬盘大小</th>
+        <th [nzAlign]="'center'">内核数</th>
+        <th [nzAlign]="'center'">带宽大小</th>
+        <th [nzAlign]="'center'">申请日期</th>
+        <th [nzAlign]="'center'">到期日期</th>
+        <th [nzAlign]="'center'">运行状态</th>
         <th nzWidth="200px" [nzAlign]="'center'">操作</th>
       </tr>
       </thead>
@@ -29,10 +29,13 @@
       <tr *ngFor="let data of basicTable.data" [ngClass]="{'selected-tr':data === selectData}"
           (click)="changeselectData(data)">
         <td [nzAlign]="'center'">{{ data.id }}</td>
-        <td [nzAlign]="'center'">{{ data.label }}</td>
-        <td [nzAlign]="'center'">{{ data.control }}</td>
-        <td [nzAlign]="'center'">{{ data.address }}</td>
-        <td [nzAlign]="'center'">{{ data.ipAddressPublic }}(公)<br>{{data.ipAddressPrivate}}(私有)</td>
+        <td [nzAlign]="'center'">{{ data.ip }}</td>
+        <td [nzAlign]="'center'">{{ data.memory }}</td>
+        <td [nzAlign]="'center'">{{ data.hardpan }}</td>
+        <td [nzAlign]="'center'">{{ data.core }}</td>
+        <td [nzAlign]="'center'">{{ data.bandWith }}</td>
+        <td [nzAlign]="'center'">{{ data.startDate }}</td>
+        <td [nzAlign]="'center'">{{ data.endDate }}</td>
         <td [nzAlign]="'center'">
           <ng-container *ngIf="data.state == 1"><span style="color: #00d95a">
             <i nz-icon nzType="right-circle" nzTheme="outline"></i> 正在运行</span>
@@ -42,19 +45,8 @@
           </ng-container>
         </td>
         <td [nzAlign]="'center'">
-          <ng-container *ngIf="data.netType == 1">专用网络</ng-container>
-          <ng-container *ngIf="data.netType == 2">公有网络</ng-container>
-        </td>
-        <td [nzAlign]="'center'">{{ data.system }}</td>
-        <td [nzAlign]="'center'">
-          包年包月
-          <br>
-          {{data.endDate}}&nbsp;到期
-        </td>
-        <td [nzAlign]="'center'">
-          <a>Action 一 {{ data.name }}</a>
-          <br>
-          <a>Delete</a>
+          <a>重启</a>
+          <a>删除</a>
         </td>
       </tr>
       </tbody>

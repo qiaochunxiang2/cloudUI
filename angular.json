@@ -34,7 +34,9 @@
             ],
             "styles": [
               "src/styles.less",
-              "src/assets/editor.md/css/editormd.css"
+              "src/assets/editor.md/css/editormd.css",
+              "src/assets/styles/ng-zorro.less",
+              "src/assets/styles/global.less"
             ],
             "scripts": [
               "src/assets/js/jquery.js",

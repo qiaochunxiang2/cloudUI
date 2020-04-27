@@ -11,6 +11,8 @@ export class BlogService {
   public publishUrl = this.hostname + '/blog/publish';
   public getAllUrl = this.hostname + '/blog/findAll';
   public personAllUrl = this.hostname + '/blog/personAll';
+  public deleteBlogUrl = this.hostname + '/blog/deleteBlog';
+
   constructor(
     private url: UrlService,
     private http: HttpClient
@@ -28,7 +30,7 @@ export class BlogService {
     });
   }
 
-  getAll(){
+  getAll() {
     return new Promise((resolve, reject) => {
       this.http.get(this.getAllUrl).toPromise().then(res => {
         resolve(res);
@@ -38,9 +40,19 @@ export class BlogService {
     });
   }
 
-  personAll(data){
+  personAll(data) {
     return new Promise((resolve, reject) => {
-      this.http.get(this.personAllUrl+'?uid='+data).toPromise().then(res => {
+      this.http.get(this.personAllUrl + '?uid=' + data).toPromise().then(res => {
+        resolve(res);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  deleteBlog(id) {
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.deleteBlogUrl + '?id=' + id).toPromise().then(res => {
         resolve(res);
       }, error => {
         reject(error);

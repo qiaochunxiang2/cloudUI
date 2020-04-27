@@ -10,7 +10,7 @@
       </div>
     </div>
   </div>
-  <!--    缺一个动态查询？-->
+
   <div class="content-table" style="padding-top: 8px;">
     <div nz-row style="padding-top: 30px; background: #ffffff; height: 100%" *ngIf="!blogDetailVisible">
       <div nz-col [nzSpan]="16" [nzOffset]="3">
@@ -31,6 +31,10 @@
               </div>
             </div>
           </nz-page-header-content>
+          <!--extra-->
+          <nz-page-header-extra>
+            <button nz-button nzType="danger" nzSize="small" (click)="deleteConfirm(blog)">删除</button>
+          </nz-page-header-extra>
         </nz-page-header>
       </div>
     </div>

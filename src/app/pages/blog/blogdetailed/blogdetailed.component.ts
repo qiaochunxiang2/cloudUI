@@ -2,10 +2,6 @@ import {
   Component,
   OnInit,
   Input,
-  AfterViewChecked,
-  AfterViewInit,
-  OnChanges,
-  SimpleChanges,
   ChangeDetectorRef,
   Output, EventEmitter
 } from '@angular/core';
