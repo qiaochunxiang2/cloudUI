@@ -1,7 +1,9 @@
 <div class="content-background" #background style="background-color: #ffffff">
-  <div class="content-header" style="padding-top: 0; background-color: #ebecef">
-    <div class="content-div" style="height: 50px;padding-top: 10px">
-      <h1>服务器列表</h1>
+  <div class="content-header" style="padding-top: 5px; height: 40px;background-color: #ebecef">
+    <div nz-row [nzGutter]="20">
+      <div nz-col nzSpan="4" [nzOffset]="1">
+        <button nz-button nzType="primary" nzSize="default" (click)="applyOpen()">新增</button>
+      </div>
     </div>
   </div>
   <div class="content-table" style="padding-left: 8px;">
@@ -20,22 +22,20 @@
         <th [nzAlign]="'center'">内核数</th>
         <th [nzAlign]="'center'">带宽大小</th>
         <th [nzAlign]="'center'">申请日期</th>
-        <th [nzAlign]="'center'">到期日期</th>
         <th [nzAlign]="'center'">运行状态</th>
         <th nzWidth="200px" [nzAlign]="'center'">操作</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let data of basicTable.data" [ngClass]="{'selected-tr':data === selectData}"
+      <tr *ngFor="let data of basicTable.data; let i = index" [ngClass]="{'selected-tr':data === selectData}"
           (click)="changeselectData(data)">
-        <td [nzAlign]="'center'">{{ data.id }}</td>
+        <td [nzAlign]="'center'">{{ i + 1 }}</td>
         <td [nzAlign]="'center'">{{ data.ip }}</td>
         <td [nzAlign]="'center'">{{ data.memory }}</td>
         <td [nzAlign]="'center'">{{ data.hardpan }}</td>
         <td [nzAlign]="'center'">{{ data.core }}</td>
         <td [nzAlign]="'center'">{{ data.bandWith }}</td>
-        <td [nzAlign]="'center'">{{ data.startDate }}</td>
-        <td [nzAlign]="'center'">{{ data.endDate }}</td>
+        <td [nzAlign]="'center'">{{ data.startDate| date:'yyyy-MM-dd' }}</td>
         <td [nzAlign]="'center'">
           <ng-container *ngIf="data.state == 1"><span style="color: #00d95a">
             <i nz-icon nzType="right-circle" nzTheme="outline"></i> 正在运行</span>
@@ -53,4 +53,5 @@
     </nz-table>
   </div>
 </div>
+<app-cloudapply [isVisible]="applyVisible" (result)="applyBack(1)" (saveResult)="applyBack(2)"></app-cloudapply>
 

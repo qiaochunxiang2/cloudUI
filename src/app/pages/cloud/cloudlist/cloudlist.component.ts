@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CloudService} from '../service/cloud.service';
 import {NzMessageService} from 'ng-zorro-antd';
 
@@ -10,28 +10,42 @@ import {NzMessageService} from 'ng-zorro-antd';
 export class CloudlistComponent implements OnInit {
   selectData;
   listOfData = [];
+  applyVisible = false;
+
   constructor(
     private cloudService: CloudService,
     private message: NzMessageService,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
-this.findAllCloud();
+    this.findAllCloud();
   }
-  changeselectData(data){
+
+  changeselectData(data) {
     this.selectData = data;
   }
 
-  findAllCloud(){
+  findAllCloud() {
     let user = localStorage.getItem('clouduser');
     user = JSON.parse(user);
     let userId = user['id'];
-    this.cloudService.findAllCloud(userId).then(res=>{
-      if (res['data']){
+    this.cloudService.findAllCloud(userId).then(res => {
+      if (res['data']) {
         this.listOfData = res['data'];
-      }else{
+      } else {
         this.message.error('服务器错误，请稍后再试');
       }
-    })
+    });
+  }
+
+  applyOpen(){
+    this.applyVisible = true;
+  }
+  applyBack(data){
+    this.applyVisible = false;
+    if (data == 2){
+      this.findAllCloud();
+    }
   }
 }

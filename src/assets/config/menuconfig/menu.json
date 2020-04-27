@@ -1,12 +1,6 @@
 [
   {
-    "title": "服务器申请",
-    "icon": "unordered-list",
-    "key": "/index/cloud/cloudapply",
-    "url": "/index/cloud/cloudapply"
-  },
-  {
-    "title": "服务器列表",
+    "title": "服务器管理",
     "icon": "cloud",
     "key": "/index/cloud/cloudlist",
     "url": "/index/cloud/cloudlist"

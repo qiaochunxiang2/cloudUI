@@ -1,43 +1,86 @@
-<div class="content-background" #background>
-  <div class="content-header" style="padding-top: 0">
-    <div class="content-div" style="border-radius: 0;">
-      <div style="background-color: #ffffff; margin: 10px 10px 10px 10px;  padding-top: 20px;height: 70px">
-        <div nz-row nzGutter="16">
-          <div nz-col [nzSpan]="2" style="padding-left: 10px">
-            <h2>vCPU：</h2>
-          </div>
-          <div nz-col [nzSpan]="3" [align]="'left'">
-            <nz-select [(ngModel)]="selectVCPU" name="cpu">
-              <nz-option *ngFor="let p of vCPUS" [nzValue]="p['value']" [nzLabel]="p['title']"></nz-option>
-            </nz-select>
-          </div>
-          <div nz-col [nzSpan]="2" style="padding-left: 10px; text-align: right">
-            <h2>内存：</h2>
-          </div>
-          <div nz-col [nzSpan]="4" [align]="'left'">
-            <nz-select [(ngModel)]="selectMemory" name="cpu">
-              <nz-option *ngFor="let p of memorys" [nzValue]="p" [nzLabel]="p"></nz-option>
-            </nz-select>
-          </div>
-        </div>
-      </div>
-      <div style="background-color: #ffffff; margin: 10px 10px 10px 10px;  padding-top: 20px;height: 70px">
-        <div nz-row nzGutter="16">
-          <div nz-col [nzSpan]="2" style="padding-left: 10px">
-            <h2>硬盘大小：</h2>
-          </div>
-          <div nz-col [nzSpan]="3" [align]="'left'">
-            <nz-input-number [(ngModel)]="selectHardpan" [nzMin]="1" [nzMax]="500" [nzStep]="1"></nz-input-number>
-          </div>
-        </div>
-      </div>
-      <div style="margin: 10px 10px 10px 10px;  padding-top: 20px;height: 70px">
-        <div nz-row nzGutter="16">
-          <div nz-col [nzSpan]="2" style="padding-left: 10px">
-              <button nz-button>创建服务器</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="back()"
+>
+</nz-modal>
+<ng-template #modalTitle>
+  服务器申请
+</ng-template>
+
+<ng-template #modalContent>
+  <nz-form-item style="padding-top: 10px">
+    <nz-form-label [nzXXl]="8" [nzXl]="8" [nzLg]="8" [nzMd]="10" [nzSm]="12" [nzXs]="18"
+                   nzRequired>内核大小
+    </nz-form-label>
+    <nz-form-control [nzXXl]="15" [nzXl]="15" [nzLg]="15" [nzMd]="13" [nzSm]="11"
+                     [nzXs]="6" [nzValidateStatus]="!coreRequired?'success':'error'"
+                     [nzHasFeedback]="coreRequired">
+      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="请选择内核大小" [(ngModel)]="cloudData.core" name="core">
+        <nz-option [nzLabel]="'1vCpu'" [nzValue]="1"></nz-option>
+        <nz-option [nzLabel]="'2vCpu'" [nzValue]="2"></nz-option>
+        <nz-option [nzLabel]="'4vCpu'" [nzValue]="4"></nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="coreRequired">{{'请选择内核大小'}}</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item style="padding-top: 10px">
+    <nz-form-label [nzXXl]="8" [nzXl]="8" [nzLg]="8" [nzMd]="10" [nzSm]="12" [nzXs]="18"
+                   nzRequired>内存大小
+    </nz-form-label>
+    <nz-form-control [nzXXl]="15" [nzXl]="15" [nzLg]="15" [nzMd]="13" [nzSm]="11"
+                     [nzXs]="6" [nzValidateStatus]="!memoryRequired?'success':'error'"
+                     [nzHasFeedback]="memoryRequired">
+      <nz-input-number
+        [(ngModel)]="cloudData.memory"
+        [nzMin]="1"
+        [nzMax]="100"
+        [nzStep]="1"
+        [nzFormatter]="formatterPercent"
+        [nzParser]="parserPercent" name="memory"
+      ></nz-input-number>
+      <nz-form-explain *ngIf="memoryRequired">{{'请输入内存大小'}}</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item style="padding-top: 10px">
+    <nz-form-label [nzXXl]="8" [nzXl]="8" [nzLg]="8" [nzMd]="10" [nzSm]="12" [nzXs]="18" nzRequired>
+      硬盘大小
+    </nz-form-label>
+    <nz-form-control [nzXXl]="15" [nzXl]="15" [nzLg]="15" [nzMd]="13" [nzSm]="11"
+                     [nzXs]="6" [nzValidateStatus]="!hardpanRequired?'success':'error'"
+                     [nzHasFeedback]="hardpanRequired">
+      <nz-input-number
+        [(ngModel)]="cloudData.hardpan"
+        [nzMin]="1"
+        [nzMax]="100"
+        [nzStep]="1"
+        [nzFormatter]="formatterPercent"
+        [nzParser]="parserPercent" name="hardpan"
+      ></nz-input-number>
+      <nz-form-explain *ngIf="memoryRequired">{{'请输入硬盘大小'}}</nz-form-explain>
+
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item style="padding-top: 10px">
+    <nz-form-label [nzXXl]="8" [nzXl]="8" [nzLg]="8" [nzMd]="10" [nzSm]="12" [nzXs]="18" nzRequired>
+      带宽大小
+    </nz-form-label>
+    <nz-form-control [nzXXl]="15" [nzXl]="15" [nzLg]="15" [nzMd]="13" [nzSm]="11"
+                     [nzXs]="6" [nzValidateStatus]="!bandWithRequired?'success':'error'"
+                     [nzHasFeedback]="bandWithRequired">
+      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="请选择带宽大小" [(ngModel)]="cloudData.bandWith" name="bandWith">
+        <nz-option [nzLabel]="'1 Gbps'" [nzValue]="1"></nz-option>
+        <nz-option [nzLabel]="'2 Gbps'" [nzValue]="2"></nz-option>
+        <nz-option [nzLabel]="'4 Gbps'" [nzValue]="4"></nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="bandWithRequired">{{'请选择带宽大小'}}</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+</ng-template>
+
+<ng-template #modalFooter>
+  <button nz-button nzType="primary" [nzLoading]="isConfirmLoading" (click)="save()">保存</button>
+  <button nz-button nzType="default" (click)="back()">取消</button>
+</ng-template>
