@@ -4,6 +4,13 @@
       <div nz-col nzSpan="4" [nzOffset]="1">
         <button nz-button nzType="primary" nzSize="default" (click)="applyOpen()">新增</button>
       </div>
+      <div nz-col nzSpan="4" [nzOffset]="1">
+        <button nz-button [disabled]="!shutdownAndRestart" nzSize="default" (click)="restart()">重启</button>
+        <button nz-button [disabled]="!shutdownAndRestart" nzType="danger" nzSize="default" (click)="shutdown()">关机
+        </button>
+      </div>
+      <div nz-col nzSpan="1">
+      </div>
     </div>
   </div>
   <div class="content-table" style="padding-left: 8px;">
@@ -28,7 +35,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let data of basicTable.data; let i = index" [ngClass]="{'selected-tr':data === selectData}"
-          (click)="changeselectData(data)">
+          (click)="changeSelectData(data, i)">
         <td [nzAlign]="'center'">{{ i + 1 }}</td>
         <td [nzAlign]="'center'">{{ data.ip }}</td>
         <td [nzAlign]="'center'">{{ data.memory }}</td>
@@ -43,10 +50,15 @@
           <ng-container *ngIf="data.state == 0"><span style="color: red">
             <i nz-icon nzType="stop" nzTheme="outline"></i>&nbsp;&nbsp;&nbsp;&nbsp;停止</span>
           </ng-container>
+          <ng-container *ngIf="data.state == 2">
+            <i nz-icon nzType="loading" nzTheme="outline"></i>&nbsp;&nbsp;&nbsp;&nbsp;正在关闭
+          </ng-container>
+          <ng-container *ngIf="data.state == 3">
+            <i nz-icon nzType="loading" nzTheme="outline"></i>&nbsp;&nbsp;&nbsp;&nbsp;正在重启
+          </ng-container>
         </td>
         <td [nzAlign]="'center'">
-          <a>重启</a>
-          <a>删除</a>
+          <a>卸载</a>
         </td>
       </tr>
       </tbody>

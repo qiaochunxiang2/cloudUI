@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CloudService} from '../service/cloud.service';
-import {NzMessageService} from 'ng-zorro-antd';
+import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-cloudlist',
@@ -11,10 +11,13 @@ export class CloudlistComponent implements OnInit {
   selectData;
   listOfData = [];
   applyVisible = false;
+  shutdownAndRestart = false;
+  selectedIndex;
 
   constructor(
     private cloudService: CloudService,
     private message: NzMessageService,
+    private modalService: NzModalService
   ) {
   }
 
@@ -22,8 +25,10 @@ export class CloudlistComponent implements OnInit {
     this.findAllCloud();
   }
 
-  changeselectData(data) {
+  changeSelectData(data, index) {
     this.selectData = data;
+    this.selectedIndex = index;
+    this.shutdownAndRestart = this.selectData != null && this.selectData['state'] == 1;
   }
 
   findAllCloud() {
@@ -39,13 +44,65 @@ export class CloudlistComponent implements OnInit {
     });
   }
 
-  applyOpen(){
+  applyOpen() {
     this.applyVisible = true;
   }
-  applyBack(data){
+
+  applyBack(data) {
     this.applyVisible = false;
-    if (data == 2){
+    if (data == 2) {
       this.findAllCloud();
     }
+  }
+
+
+  shutdown() {
+    this.modalService.warning({
+      nzTitle: null,
+      nzContent: '<b style="color:#1b86d7;">您确定要关机吗？</b>',
+      nzOkText: '确定',
+      nzOnOk: () => this.shutdownConfirm(),
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('Cancel')
+    });
+
+  }
+
+  shutdownConfirm() {
+    this.listOfData[this.selectedIndex]['state'] = 2;
+    this.shutdownAndRestart = false;
+    this.cloudService.shutdown(this.selectData).then(res => {
+      if (res['data']) {
+        this.message.success('关闭成功');
+      } else {
+        this.message.error('未知错误，请联系管理员');
+      }
+      this.listOfData[this.selectedIndex]['state'] = 0;
+    });
+  }
+
+  restart() {
+    this.modalService.warning({
+      nzTitle: null,
+      nzContent: '<b style="color:#1b86d7;">您确定要重启吗？</b>',
+      nzOkText: '确定',
+      nzOnOk: () => this.restartConfirm(),
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('Cancel')
+    });
+  }
+
+  restartConfirm() {
+    this.listOfData[this.selectedIndex]['state'] = 3;
+    this.shutdownAndRestart = false;
+    this.cloudService.restart(this.selectData).then(res => {
+      if (res['data']) {
+        this.message.success('重启成功');
+      } else {
+        this.message.error('未知错误，请联系管理员');
+      }
+      this.listOfData[this.selectedIndex]['state'] = 1;
+      this.shutdownAndRestart = true;
+    });
   }
 }

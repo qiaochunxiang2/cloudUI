@@ -9,6 +9,10 @@ export class CloudService {
 
   public findAllUrl = this.url.hostname + '/cloud/findAll';
   public saveCloudUrl = this.url.hostname + '/cloud/apply';
+  public shutdownCloudUrl = this.url.hostname + '/cloud/shutdown';
+  public restartCloudUrl = this.url.hostname + '/cloud/restart';
+
+
   constructor(
     private url: UrlService,
     private http: HttpClient
@@ -25,10 +29,32 @@ export class CloudService {
     });
   }
 
-  save(data){
+  save(data) {
     data = JSON.parse(JSON.stringify(data));
     return new Promise((resolve, reject) => {
       this.http.post(this.saveCloudUrl, data).toPromise().then(res => {
+        resolve(res);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  shutdown(data) {
+    data = JSON.parse(JSON.stringify(data));
+    return new Promise((resolve, reject) => {
+      this.http.post(this.shutdownCloudUrl, data).toPromise().then(res => {
+        resolve(res);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  restart(data) {
+    data = JSON.parse(JSON.stringify(data));
+    return new Promise((resolve, reject) => {
+      this.http.post(this.restartCloudUrl, data).toPromise().then(res => {
         resolve(res);
       }, error => {
         reject(error);
