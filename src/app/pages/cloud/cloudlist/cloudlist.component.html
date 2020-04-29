@@ -38,10 +38,10 @@
           (click)="changeSelectData(data, i)">
         <td [nzAlign]="'center'">{{ i + 1 }}</td>
         <td [nzAlign]="'center'">{{ data.ip }}</td>
-        <td [nzAlign]="'center'">{{ data.memory }}</td>
-        <td [nzAlign]="'center'">{{ data.hardpan }}</td>
-        <td [nzAlign]="'center'">{{ data.core }}</td>
-        <td [nzAlign]="'center'">{{ data.bandWith }}</td>
+        <td [nzAlign]="'center'">{{ data.memory }}&nbsp;&nbsp;G</td>
+        <td [nzAlign]="'center'">{{ data.hardpan }}&nbsp;&nbsp;G</td>
+        <td [nzAlign]="'center'">{{ data.core }}&nbsp;&nbsp;vCpu</td>
+        <td [nzAlign]="'center'">{{ data.bandWith }}&nbsp;&nbsp;Gbps</td>
         <td [nzAlign]="'center'">{{ data.startDate| date:'yyyy-MM-dd' }}</td>
         <td [nzAlign]="'center'">
           <ng-container *ngIf="data.state == 1"><span style="color: #00d95a">

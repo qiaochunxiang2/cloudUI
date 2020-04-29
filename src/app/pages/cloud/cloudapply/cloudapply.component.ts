@@ -42,22 +42,61 @@ export class CloudapplyComponent implements OnInit {
     this.result.emit(false);
   }
 
-  save(){
-    console.log(this.cloudData);
+  save() {
     let user = localStorage.getItem('clouduser');
     this.isConfirmLoading = true;
     user = JSON.parse(user);
     this.cloudData.userId = user['id'];
-    this.cloudService.save(this.cloudData).then(res=>{
-      if (res['data']){
+    this.cloudService.save(this.cloudData).then(res => {
+      if (res['data']) {
         this.message.success('服务器申请成功');
-        setTimeout(()=>{
+        setTimeout(() => {
           this.saveResult.emit(false);
         }, 300);
-      } else{
+      } else {
         this.message.error('服务器错误');
       }
       this.isConfirmLoading = false;
-    })
+    });
+
+  }
+
+  memoryChange() {
+    this.memoryRequired = this.cloudData['memory'] == null;
+  }
+
+  coreChange() {
+    this.coreRequired = this.cloudData['core'] == null;
+  }
+
+  hardpanChange() {
+    this.hardpanRequired = this.cloudData['hardpan'] == null;
+  }
+
+  bandWithChange() {
+    this.bandWithRequired = this.cloudData['bandWith'] == null;
+  }
+
+  confirm() {
+    this.memoryRequired = this.cloudData['memory'] == null;
+    this.coreRequired = this.cloudData['core'] == null;
+    this.hardpanRequired = this.cloudData['hardpan'] == null;
+    this.bandWithRequired = this.cloudData['bandWith'] == null;
+  }
+
+  saveConfirm() {
+    this.confirm();
+    if (!this.coreRequired && !this.memoryRequired && !this.bandWithRequired && !this.hardpanRequired) {
+      this.modalService.warning({
+        nzTitle: null,
+        nzContent: '<b style="color:#1b86d7;">您确定要申请服务器吗？</b>',
+        nzOkText: '确定',
+        nzOnOk: () => this.save(),
+        nzCancelText: '取消',
+        nzOnCancel: () => console.log('Cancel')
+      });
+    } else {
+      this.message.warning('请选择服务器配置');
+    }
   }
 }

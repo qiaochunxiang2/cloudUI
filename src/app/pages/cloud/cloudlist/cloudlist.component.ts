@@ -74,10 +74,11 @@ export class CloudlistComponent implements OnInit {
     this.cloudService.shutdown(this.selectData).then(res => {
       if (res['data']) {
         this.message.success('关闭成功');
+        this.listOfData[this.selectedIndex]['state'] = 0;
       } else {
         this.message.error('未知错误，请联系管理员');
+        this.listOfData[this.selectedIndex]['state'] = 1;
       }
-      this.listOfData[this.selectedIndex]['state'] = 0;
     });
   }
 
