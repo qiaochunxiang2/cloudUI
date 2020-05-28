@@ -50,14 +50,14 @@ export class IndexComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       map(() => this.activatedRoute),
-      map(route => {
-        while (route.firstChild) {
-          route = route.firstChild;
+      map(route2 => {
+        while (route2.firstChild) {
+          route2 = route2.firstChild;
         }
-        return route;
+        return route2;
       }),
-      filter(route => route.outlet === 'primary'),
-      mergeMap(route => route.data)
+      filter(route2 => route2.outlet === 'primary'),
+      mergeMap(route2 => route2.data)
     ).subscribe((event) => {
       const url = this.router.url;
       if (['/', '/login', '/index', '/index/empty'].indexOf(url) < 0) {

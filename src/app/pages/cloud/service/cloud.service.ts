@@ -11,6 +11,7 @@ export class CloudService {
   public saveCloudUrl = this.url.hostname + '/cloud/apply';
   public shutdownCloudUrl = this.url.hostname + '/cloud/shutdown';
   public restartCloudUrl = this.url.hostname + '/cloud/restart';
+  public deleteCloudUrl = this.url.hostname + '/cloud/delete';
 
 
   constructor(
@@ -55,6 +56,16 @@ export class CloudService {
     data = JSON.parse(JSON.stringify(data));
     return new Promise((resolve, reject) => {
       this.http.post(this.restartCloudUrl, data).toPromise().then(res => {
+        resolve(res);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  deleteCloud(id) {
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.deleteCloudUrl + '?id=' + id).toPromise().then(res => {
         resolve(res);
       }, error => {
         reject(error);

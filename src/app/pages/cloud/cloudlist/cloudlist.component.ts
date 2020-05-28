@@ -38,6 +38,7 @@ export class CloudlistComponent implements OnInit {
     this.cloudService.findAllCloud(userId).then(res => {
       if (res['data']) {
         this.listOfData = res['data'];
+        this.shutdownAndRestart = false;
       } else {
         this.message.error('服务器错误，请稍后再试');
       }
@@ -104,6 +105,29 @@ export class CloudlistComponent implements OnInit {
       }
       this.listOfData[this.selectedIndex]['state'] = 1;
       this.shutdownAndRestart = true;
+    });
+  }
+
+  deleteCloud(data) {
+    this.modalService.warning({
+      nzTitle: null,
+      nzContent: '<b style="color:#1b86d7;">您确定要卸载吗？</b>',
+      nzOkText: '确定',
+      nzOnOk: () => this.deleteConfirm(data),
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('Cancel')
+    });
+  }
+
+  deleteConfirm(data) {
+    this.message.warning('正在卸载，请稍后');
+    this.cloudService.deleteCloud(data['id']).then(res => {
+      if (res['data']) {
+        this.message.success('卸载成功');
+        this.findAllCloud();
+      } else {
+        this.message.error('服务器错误');
+      }
     });
   }
 }

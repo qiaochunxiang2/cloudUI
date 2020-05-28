@@ -58,7 +58,8 @@
           </ng-container>
         </td>
         <td [nzAlign]="'center'">
-          <a>卸载</a>
+          <a nzTooltipTitle="卸载" nzTooltipPlacement="topLeft" nz-tooltip (click)="deleteCloud(data)"><i nz-icon
+                                                                                                        nzType="delete"></i></a>
         </td>
       </tr>
       </tbody>

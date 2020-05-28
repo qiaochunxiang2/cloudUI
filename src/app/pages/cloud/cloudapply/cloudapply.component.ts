@@ -21,24 +21,31 @@ export class CloudapplyComponent implements OnInit {
     bandWith: null,
     userId: null
   };
-
   constructor(
     private message: NzMessageService,
     private cloudService: CloudService,
     private modalService: NzModalService
   ) {
   }
-
   coreRequired;
   memoryRequired;
   hardpanRequired;
   bandWithRequired;
-
   ngOnInit() {
-
   }
 
   back() {
+    this.coreRequired = false;
+    this.memoryRequired = false;
+    this.hardpanRequired = false;
+    this.bandWithRequired = false;
+    this. cloudData = {
+      core: null,
+      memory: 2,
+      hardpan: 40,
+      bandWith: null,
+      userId: null
+    };
     this.result.emit(false);
   }
 
@@ -51,6 +58,13 @@ export class CloudapplyComponent implements OnInit {
       if (res['data']) {
         this.message.success('服务器申请成功');
         setTimeout(() => {
+          this. cloudData = {
+            core: null,
+            memory: 2,
+            hardpan: 40,
+            bandWith: null,
+            userId: null
+          };
           this.saveResult.emit(false);
         }, 300);
       } else {

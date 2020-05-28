@@ -1,11 +1,12 @@
 <div nz-row style="padding-top: 30px; background: #ffffff; height: 100%" *ngIf="!blogDetailVisible">
-  <div nz-col [nzSpan]="16" [nzOffset]="3" >
+  <div nz-col [nzSpan]="16" [nzOffset]="3">
     <nz-page-header class="site-page-header" *ngFor="let blog of blogData">
       <!--avatar-->
       <nz-avatar nz-page-header-avatar
-                 [nzSrc]="'http://q87xedep1.bkt.clouddn.com/'+blog['userInformation']['imageUrl']"></nz-avatar>
+                 [nzSrc]="'http://qb19gmp8f.bkt.clouddn.com/'+blog['userInformation']['imageUrl']"></nz-avatar>
       <!--title-->
-      <nz-page-header-title><a (click)="changeSelectedBlog(blog)" style="font-size: 20px">{{blog['title']}}</a></nz-page-header-title>
+      <nz-page-header-title><a (click)="changeSelectedBlog(blog)" style="font-size: 20px">{{blog['title']}}</a>
+      </nz-page-header-title>
       <!--content-->
       <nz-page-header-content>
         <div nz-row>
