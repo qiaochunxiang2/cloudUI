@@ -10,7 +10,7 @@ import {BlogService} from '../service/blog.service';
 })
 export class SendblogComponent implements OnInit {
   title = 'app';
-  markdown = '测试语句';
+  markdown = '';
   conf = new EditorConfig();
   @Output() result = new EventEmitter();
   blogData = {
